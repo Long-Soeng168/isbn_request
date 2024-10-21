@@ -8,7 +8,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 
-class CheckUserExpiration
+class CheckUserStatus
 {
     /**
      * Handle an incoming request.
@@ -19,19 +19,8 @@ class CheckUserExpiration
     {
         $user = Auth::user();
 
-        if ($user && $user->expired_at) {
-            $expiredAt = Carbon::parse($user->expired_at);
-
-            if ($expiredAt->isPast()) {
-                Auth::logout();
-                return redirect()->route('expired');
-            }
-        }
-
-        if ($user && $user->status) {
-            if ($user->status == 0) {
-                return redirect()->route('in-review');
-            }
+        if ($user && $user->status !== 1) {
+            return redirect()->route('in_review');
         }
 
         return $next($request);

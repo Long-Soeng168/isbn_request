@@ -103,6 +103,9 @@ return [
     'createdAt' => 'Created At',
     'isbnAllocated' => 'ISBN Allocated',
     'status' => 'Status',
+    'register' => 'Register',
+    'userRequest' => 'User Request',
+    'requestBy' => 'Request By',
 
 
 ];

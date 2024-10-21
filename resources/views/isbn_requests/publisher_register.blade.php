@@ -12,9 +12,9 @@
 
             <form method="POST" action="{{ url('/publisher_register') }}">
                 @csrf
-                <h3 class="text-xl font-bold">
+                {{-- <h3 class="text-xl font-bold">
                     {{ __('messages.loginDetails') }}
-                </h3>
+                </h3> --}}
 
                 <!-- Email Address -->
                 <div class="mt-4">
@@ -45,9 +45,9 @@
                 </div>
 
 
-                <h3 class="pt-12 text-xl font-bold">
+                {{-- <h3 class="pt-12 text-xl font-bold">
                     {{ __('messages.userDetails') }}
-                </h3>
+                </h3> --}}
                 <div class="grid grid-cols-1 gap-4 mt-4 md:grid-cols-1">
                     <div class="">
                         <x-input-label for="name" :value="__('messages.name')" />

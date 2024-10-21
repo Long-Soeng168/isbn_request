@@ -131,7 +131,7 @@
                             Title
                         </div>
                     </th>
-                    <th scope="col" class="px-4 py-3">Publisher</th>
+                    <th scope="col" class="px-4 py-3 text-center">Publisher</th>
                     <th scope="col" class="px-4 py-3">ISBN</th>
                     <th scope="col" class="px-4 py-3 text-center">Status</th>
                     <th scope="col" class="px-4 py-3">Created_at</th>
@@ -153,7 +153,20 @@
                             </a>
                         </th>
                         <x-table-data value="{{ $item->title }}" />
-                        <x-table-data value="{{ $item->publisher?->name }}" />
+                        <td class="text-center">
+                            @if (request()->user()->hasRole(['admin', 'super-admin']))
+                                <a href="{{ url('publisher/' . $item->publisher_id) }}">
+                                    <p
+                                        class="text-sm text-blue-600 hover:text-blue-800 hover:underline dark:text-gray-200">
+                                        {{ $item->publisher?->name }}
+                                    </p>
+                                </a>
+                            @else
+                                <p class="text-sm text-gray-600 dark:text-gray-200">
+                                    {{ $item->publisher?->name }}
+                                </p>
+                            @endif
+                        </td>
                         <x-table-data value="{{ $item->status == 1 ? $item->isbn : 'N/A' }}" />
                         <td class="text-center">
                             @if ($item->status == 1)
@@ -169,6 +182,7 @@
                                     Reject
                                 </span>
                             @endif
+
                         </td>
 
                         <x-table-data value="{{ $item->created_at?->format('d-M-Y') }}" />
@@ -179,7 +193,8 @@
 
                                 <div class="pb-1" x-data="{ tooltip: false }">
                                     <!-- Modal toggle -->
-                                    <a href="{{ url('/isbn_requests/'.$item->id) }}" @mouseenter="tooltip = true" @mouseleave="tooltip = false">
+                                    <a href="{{ url('/isbn_requests/' . $item->id) }}" @mouseenter="tooltip = true"
+                                        @mouseleave="tooltip = false">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
                                             viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                             stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -198,29 +213,29 @@
                                 </div>
 
                                 @if ($item->status !== 1)
-                                <div class="pb-1" x-data="{ tooltip: false }">
-                                    <!-- Modal toggle -->
-                                    <a wire:click="delete({{ $item->id }})"
-                                        wire:confirm="Are you sure? you want to delete : {{ $item->title }}"
-                                        @mouseenter="tooltip = true" @mouseleave="tooltip = false"
-                                        class="text-red-600">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
-                                            viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                                            class="lucide lucide-trash">
-                                            <path d="M3 6h18" />
-                                            <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6" />
-                                            <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2" />
-                                        </svg>
-                                    </a>
+                                    <div class="pb-1" x-data="{ tooltip: false }">
+                                        <!-- Modal toggle -->
+                                        <a wire:click="delete({{ $item->id }})"
+                                            wire:confirm="Are you sure? you want to delete : {{ $item->title }}"
+                                            @mouseenter="tooltip = true" @mouseleave="tooltip = false"
+                                            class="text-red-600">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
+                                                viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                                class="lucide lucide-trash">
+                                                <path d="M3 6h18" />
+                                                <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6" />
+                                                <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2" />
+                                            </svg>
+                                        </a>
 
-                                    <!-- View tooltip -->
-                                    <div x-show="tooltip" x-transition:enter="transition ease-out duration-200"
-                                        class="absolute z-[9999] inline-block px-3 py-2 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm dark:bg-gray-700 whitespace-nowrap"
-                                        style="display: none;">
-                                        Delete
+                                        <!-- View tooltip -->
+                                        <div x-show="tooltip" x-transition:enter="transition ease-out duration-200"
+                                            class="absolute z-[9999] inline-block px-3 py-2 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm dark:bg-gray-700 whitespace-nowrap"
+                                            style="display: none;">
+                                            Delete
+                                        </div>
                                     </div>
-                                </div>
                                 @endif
 
                                 <div class="pb-1" x-data="{ tooltip: false }">

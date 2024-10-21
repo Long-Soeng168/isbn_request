@@ -69,6 +69,7 @@ class IsbnTableData extends Component
         })
 
         ->orderBy($this->sortBy, $this->sortDir)
+        ->orderBy('id', 'DESC')
         ->paginate($this->perPage);
 
 

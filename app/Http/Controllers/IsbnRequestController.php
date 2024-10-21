@@ -22,10 +22,16 @@ class IsbnRequestController extends Controller
          return view('isbn_requests.create');
      }
 
+     public function publisher($id)
+     {
+         return view('isbn_requests.publisher', compact('id'));
+     }
+
      public function show($id)
      {
          return view('isbn_requests.show', compact('id'));
      }
+
      public function edit($id)
      {
          return view('isbn_requests.edit', compact('id'));
@@ -41,6 +47,27 @@ class IsbnRequestController extends Controller
      {
         return view('isbn_requests.publisher_login');
      }
+
+     public function store_publisher_login(Request $request)
+    {
+        // Validate the email and password inputs
+        $request->validate([
+            'email' => 'required|string|email|max:255|exists:users,email', // check if email exists
+            'password' => 'required|string',
+        ]);
+
+        // Attempt to log in using the provided credentials
+        if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
+            // If successful, redirect to the desired route (e.g., dashboard or homepage)
+            return redirect('admin/dashboard')->with('success', 'Registration successful!');
+        }
+
+        // If authentication fails, redirect back with error message
+        return back()->withErrors([
+            'email' => 'The provided credentials do not match our records.',
+        ])->withInput(); // withInput retains the input for the form
+    }
+
 
      public function store_publisher_register(Request $request)
      {
@@ -65,6 +92,7 @@ class IsbnRequestController extends Controller
             'facebook_name' => $request->facebookName,
             'publications_each_year' => $request->publicationsEachYear,
             'password' => Hash::make($request->password),
+            'status' => 0,
         ]);
 
         $user->assignRole($request->user_type);
@@ -72,8 +100,10 @@ class IsbnRequestController extends Controller
         // Log the user in
         Auth::login($user);
 
+        return redirect()->route('in_review');
+
         // Redirect to the desired route after login
-        return redirect('isbn_requests/create')->with('success', 'Registration successful!');
+        // return redirect('isbn_requests/create')->with('success', 'Registration successful!');
      }
 
 }

@@ -25,6 +25,12 @@ class IsbnCreate extends Component
     public $isbn_last_received = null;
     public $language = 'khmer';
 
+    public function mount() {
+        $user = request()->user();
+        $latestApprovedItem = IsbnRequest::where('status', 1)->where('publisher_id', $user->id)->orderBy('id', 'DESC')->first();
+        $this->isbn_last_received = $latestApprovedItem?->isbn;
+    }
+
 
 
     public function updatedImage()

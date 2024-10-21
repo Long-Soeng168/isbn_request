@@ -72,6 +72,9 @@ Route::get('/fetch_book_cover', [HomeController::class, 'fetchAndSaveBookCover']
 Route::get('/expired', function () {
     return view('auth.expired');
 })->name('expired');
+Route::get('/in_review', function () {
+    return view('auth.in_review');
+})->name('in_review');
 
 Route::get('/static', function () {
     return view('static');
@@ -86,6 +89,7 @@ Route::get('/static', function () {
 */
 Route::group([
     'middleware' => 'auth',
+    'middleware' => 'check_user_status',
     'prefix' => 'admin',
     'as' => 'admin.'
 ], function() {
@@ -224,6 +228,7 @@ Route::get('/switch-language/{locale}', function($locale){
 Route::group([
     'middleware' => 'setLang',
     'middleware' => 'publsiher_auth',
+    'middleware' => 'check_user_status',
 ], function () {
     Route::resource('isbn_requests', IsbnRequestController::class);
     Route::resource('admin/books', BookController::class);
@@ -233,11 +238,18 @@ Route::group([
     'middleware' => 'setLang',
 ], function () {
 
+    Route::get('publisher/{id}', [IsbnRequestController::class, 'publisher']);
     Route::get('publisher_login', [IsbnRequestController::class, 'publisher_login']);
+    Route::post('publisher_login', [IsbnRequestController::class, 'store_publisher_login']);
     Route::get('publisher_register', [IsbnRequestController::class, 'publisher_register']);
     Route::post('publisher_register', [IsbnRequestController::class, 'store_publisher_register']);
 
-    Route::get('/', [HomeController::class, 'index']);
+    // Route::get('/', [HomeController::class, 'index']);
+
+    Route::get('/', function () {
+        return view('welcome');
+    });
+
     Route::get('/one_search', [HomeController::class, 'oneSearch']);
     Route::get('/client_login/{path}', [HomeController::class, 'clientLogin'])->name('client.login');
     Route::post('/client_login/{path}', [HomeController::class, 'clientLoginStore'])->name('client.login.store');

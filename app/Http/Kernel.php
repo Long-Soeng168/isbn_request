@@ -73,5 +73,6 @@ class Kernel extends HttpKernel
 
         'setLang' => \App\Http\Middleware\SetLocale::class,
         'publsiher_auth' => \App\Http\Middleware\IsbnRequestAuthenticate::class,
+        'check_user_status' => \App\Http\Middleware\CheckUserStatus::class,
     ];
 }

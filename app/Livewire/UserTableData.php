@@ -47,7 +47,6 @@ class UserTableData extends Component
     public function updatedSearch() {
         $this->dispatch('livewire:updated');
         $this->resetPage();
-
     }
     public function updatingPage(){
         $this->dispatch('livewire:updated');
@@ -59,6 +58,15 @@ class UserTableData extends Component
         $user->delete();
 
         session()->flash('success', 'Delete Successfully!');
+    }
+
+    public function updateStatus($id, $status) {
+        $user = User::findOrFail($id);
+        $user->update([
+            'status' => $status,
+        ]);
+
+        session()->flash('success', 'Update Successfully!');
     }
 
     public function render(){

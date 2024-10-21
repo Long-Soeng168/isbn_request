@@ -381,7 +381,7 @@
                     <li class="mt-2">
                         <x-sidebar-item href="{{ url('isbn_requests') }}"
                             class="{{ request()->is('isbn_requests*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">
-                            <img src="{{ asset('assets/icons/dashboard.png') }}" alt="icon"
+                            <img src="{{ asset('assets/icons/isbn.png') }}" alt="icon"
                                 class="object-contain w-8 h-8 p-0.5 bg-white dark:bg-gray-200 rounded">
                             <span class="ml-3">ISBN Requests</span>
                         </x-sidebar-item>
@@ -389,9 +389,9 @@
                     <li class="mt-2">
                         <x-sidebar-item href="{{ url('admin/books') }}"
                             class="{{ request()->is('admin/books*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">
-                            <img src="{{ asset('assets/icons/dashboard.png') }}" alt="icon"
+                            <img src="{{ asset('assets/icons/book.png') }}" alt="icon"
                                 class="object-contain w-8 h-8 p-0.5 bg-white dark:bg-gray-200 rounded">
-                            <span class="ml-3">Books</span>
+                            <span class="ml-3">Catalog</span>
                         </x-sidebar-item>
                     </li>
 
@@ -463,562 +463,6 @@
                     </li> --}}
                 </ul>
 
-                <ul class="pt-3 mt-5 border-t border-gray-200 dark:border-gray-700">
-                    @forelse ($menu_databases as $database)
-                        @if ($database->type != 'slug')
-                            @continue
-                        @endif
-                        @switch($database->slug)
-                            @case('publications')
-                                @can('view epublication')
-                                    <li x-data="{
-                                        open: {{ request()->is('admin/publications*') ? 'true' : 'false' }},
-                                        init() {
-                                            if ({{ request()->is('admin/publications*') ? 'true' : 'false' }}) {
-                                                this.$nextTick(() => this.$refs.publications.scrollIntoView({ behavior: 'smooth' }));
-                                            }
-                                        }
-                                    }" x-ref="publications" class="pt-1">
-                                        <button type="button"
-                                            class="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->is('admin/publications*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}"
-                                            :class="{ 'bg-slate-100 dark:bg-slate-700': open }"
-                                            @click="open = !open; if (open) $nextTick(() => $refs.publications.scrollIntoView({ behavior: 'smooth' }))">
-                                            <img src="{{ asset('assets/images/databases/' . $database->image) }}" alt="icon"
-                                                class="object-contain w-8 h-8 p-0.5 bg-white dark:bg-gray-200 rounded">
-                                            <span
-                                                class="flex-1 text-left ms-3 rtl:text-right whitespace-nowrap">{{ $database->name }}</span>
-                                            <svg class="w-3 h-3 transition-transform duration-200 transform"
-                                                :class="{ 'rotate-180': open }" aria-hidden="true"
-                                                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
-                                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                                    stroke-width="2" d="m1 1 4 4 4-4" />
-                                            </svg>
-                                        </button>
-                                        <ul x-show="open" x-transition class="py-2 ml-2 space-y-2">
-                                            <li>
-                                                <a href="{{ url('admin/publications') }}"
-                                                    class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->is('admin/publications') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">
-                                                    E-Publications
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="{{ url('admin/publications_types') }}"
-                                                    class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->is('admin/publications_types') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">
-                                                    Types</a>
-                                            </li>
-                                            <li>
-                                                <a href="{{ url('admin/publications_categories') }}"
-                                                    class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->is('admin/publications_categories') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">
-                                                    Categories</a>
-                                            </li>
-                                            <li>
-                                                <a href="{{ url('admin/publications_sub_categories') }}"
-                                                    class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->is('admin/publications_sub_categories') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">
-                                                    Sub-Categories</a>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                @endcan
-                            @break
-
-                            @case('videos')
-                                @can('view video')
-                                    <li x-data="{
-                                        open: {{ request()->is('admin/videos*') ? 'true' : 'false' }},
-                                        init() {
-                                            if ({{ request()->is('admin/videos*') ? 'true' : 'false' }}) {
-                                                this.$nextTick(() => this.$refs.videos.scrollIntoView({ behavior: 'smooth' }));
-                                            }
-                                        }
-                                    }" x-ref="videos" class="pt-1">
-                                        <button type="button"
-                                            class="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->is('admin/videos*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}"
-                                            :class="{ 'bg-slate-100 dark:bg-slate-700': open }"
-                                            @click="open = !open; if (open) $nextTick(() => $refs.videos.scrollIntoView({ behavior: 'smooth' }))">
-                                            <img src="{{ asset('assets/images/databases/' . $database->image) }}" alt="icon"
-                                                class="object-contain w-8 h-8 p-0.5 bg-white dark:bg-gray-200 rounded">
-                                            <span
-                                                class="flex-1 text-left ms-3 rtl:text-right whitespace-nowrap">{{ $database->name }}</span>
-                                            <svg class="w-3 h-3 transition-transform duration-200 transform"
-                                                :class="{ 'rotate-180': open }" aria-hidden="true"
-                                                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
-                                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                                    stroke-width="2" d="m1 1 4 4 4-4" />
-                                            </svg>
-                                        </button>
-                                        <ul x-show="open" x-transition class="py-2 ml-2 space-y-2">
-                                            <li>
-                                                <a href="{{ route('admin.videos.index') }}"
-                                                    class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->is('admin/videos') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">Videos</a>
-                                            </li>
-                                            <li>
-                                                <a href="{{ url('admin/videos_types') }}"
-                                                    class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->is('admin/videos_types') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">
-                                                    Types</a>
-                                            </li>
-                                            <li>
-                                                <a href="{{ url('admin/videos_categories') }}"
-                                                    class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->is('admin/videos_categories') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">
-                                                    Categories</a>
-                                            </li>
-                                            <li>
-                                                <a href="{{ url('admin/videos_sub_categories') }}"
-                                                    class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->is('admin/videos_sub_categories') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">
-                                                    Sub-Categories</a>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                @endcan
-                            @break
-
-                            @case('images')
-                                @can('view image')
-                                    <li x-data="{
-                                        open: {{ request()->is('admin/images*') ? 'true' : 'false' }},
-                                        init() {
-                                            if ({{ request()->is('admin/images*') ? 'true' : 'false' }}) {
-                                                this.$nextTick(() => this.$refs.images.scrollIntoView({ behavior: 'smooth' }));
-                                            }
-                                        }
-                                    }" x-ref="images" class="pt-1">
-                                        <button type="button"
-                                            class="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->is('admin/images*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}"
-                                            :class="{ 'bg-slate-100 dark:bg-slate-700': open }"
-                                            @click="open = !open; if (open) $nextTick(() => $refs.images.scrollIntoView({ behavior: 'smooth' }))">
-                                            <img src="{{ asset('assets/images/databases/' . $database->image) }}" alt="icon"
-                                                class="object-contain w-8 h-8 p-0.5 bg-white dark:bg-gray-200 rounded">
-                                            <span
-                                                class="flex-1 text-left ms-3 rtl:text-right whitespace-nowrap">{{ $database->name }}</span>
-                                            <svg class="w-3 h-3 transition-transform duration-200 transform"
-                                                :class="{ 'rotate-180': open }" aria-hidden="true"
-                                                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
-                                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                                    stroke-width="2" d="m1 1 4 4 4-4" />
-                                            </svg>
-                                        </button>
-                                        <ul x-show="open" x-transition class="py-2 ml-2 space-y-2">
-                                            <li>
-                                                <a href="{{ route('admin.images.index') }}"
-                                                    class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->is('admin/images') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">Images</a>
-                                            </li>
-                                            <li>
-                                                <a href="{{ url('admin/images_types') }}"
-                                                    class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->is('admin/images_types') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">
-                                                    Types</a>
-                                            </li>
-                                            <li>
-                                                <a href="{{ url('admin/images_categories') }}"
-                                                    class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->is('admin/images_categories') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">
-                                                    Categories</a>
-                                            </li>
-                                            <li>
-                                                <a href="{{ url('admin/images_sub_categories') }}"
-                                                    class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->is('admin/images_sub_categories') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">
-                                                    Sub-Categories</a>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                @endcan
-                            @break
-
-                            @case('audios')
-                                @can('view audio')
-                                    <li x-data="{
-                                        open: {{ request()->is('admin/audios*') ? 'true' : 'false' }},
-                                        init() {
-                                            if ({{ request()->is('admin/audios*') ? 'true' : 'false' }}) {
-                                                this.$nextTick(() => this.$refs.audios.scrollIntoView({ behavior: 'smooth' }));
-                                            }
-                                        }
-                                    }" x-ref="audios" class="pt-1">
-                                        <button type="button"
-                                            class="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->is('admin/audios*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}"
-                                            :class="{ 'bg-slate-100 dark:bg-slate-700': open }"
-                                            @click="open = !open; if (open) $nextTick(() => $refs.audios.scrollIntoView({ behavior: 'smooth' }))">
-                                            <img src="{{ asset('assets/images/databases/' . $database->image) }}" alt="icon"
-                                                class="object-contain w-8 h-8 p-0.5 bg-white dark:bg-gray-200 rounded">
-                                            <span
-                                                class="flex-1 text-left ms-3 rtl:text-right whitespace-nowrap">{{ $database->name }}</span>
-                                            <svg class="w-3 h-3 transition-transform duration-200 transform"
-                                                :class="{ 'rotate-180': open }" aria-hidden="true"
-                                                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
-                                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                                    stroke-width="2" d="m1 1 4 4 4-4" />
-                                            </svg>
-                                        </button>
-                                        <ul x-show="open" x-transition class="py-2 ml-2 space-y-2">
-                                            <li>
-                                                <a href="{{ route('admin.audios.index') }}"
-                                                    class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->is('admin/audios') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">Audios</a>
-                                            </li>
-                                            <li>
-                                                <a href="{{ url('admin/audios_types') }}"
-                                                    class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->is('admin/audios_types') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">
-                                                    Types</a>
-                                            </li>
-                                            <li>
-                                                <a href="{{ url('admin/audios_categories') }}"
-                                                    class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->is('admin/audios_categories') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">
-                                                    Categories</a>
-                                            </li>
-                                            <li>
-                                                <a href="{{ url('admin/audios_sub_categories') }}"
-                                                    class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->is('admin/audios_sub_categories') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">
-                                                    Sub-Categories</a>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                @endcan
-                            @break
-
-                            @case('bulletins')
-                                @can('view bulletin')
-                                    <li x-data="{
-                                        open: {{ request()->is('admin/bulletins*') ? 'true' : 'false' }},
-                                        init() {
-                                            if ({{ request()->is('admin/bulletins*') ? 'true' : 'false' }}) {
-                                                this.$nextTick(() => this.$refs.bulletins.scrollIntoView({ behavior: 'smooth' }));
-                                            }
-                                        }
-                                    }" x-ref="bulletins" class="pt-1">
-                                        <button type="button"
-                                            class="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->is('admin/bulletins*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}"
-                                            :class="{ 'bg-slate-100 dark:bg-slate-700': open }"
-                                            @click="open = !open; if (open) $nextTick(() => $refs.bulletins.scrollIntoView({ behavior: 'smooth' }))">
-                                            <img src="{{ asset('assets/images/databases/' . $database->image) }}" alt="icon"
-                                                class="object-contain w-8 h-8 p-0.5 bg-white dark:bg-gray-200 rounded">
-                                            <span
-                                                class="flex-1 text-left ms-3 rtl:text-right whitespace-nowrap">{{ $database->name }}</span>
-                                            <svg class="w-3 h-3 transition-transform duration-200 transform"
-                                                :class="{ 'rotate-180': open }" aria-hidden="true"
-                                                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
-                                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                                    stroke-width="2" d="m1 1 4 4 4-4" />
-                                            </svg>
-                                        </button>
-                                        <ul x-show="open" x-transition class="py-2 ml-2 space-y-2">
-                                            <li>
-                                                <a href="{{ route('admin.bulletins.index') }}"
-                                                    class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->is('admin/bulletins') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">Bulletins</a>
-                                            </li>
-                                            <li>
-                                                <a href="{{ url('admin/bulletins_types') }}"
-                                                    class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->is('admin/bulletins_types') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">
-                                                    Types</a>
-                                            </li>
-                                            <li>
-                                                <a href="{{ url('admin/bulletins_categories') }}"
-                                                    class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->is('admin/bulletins_categories') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">
-                                                    Categories</a>
-                                            </li>
-                                            <li>
-                                                <a href="{{ url('admin/bulletins_sub_categories') }}"
-                                                    class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->is('admin/bulletins_sub_categories') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">
-                                                    Sub-Categories</a>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                @endcan
-                            @break
-
-                            @case('theses')
-                                @can('view thesis')
-                                    <li x-data="{
-                                        open: {{ request()->is('admin/theses*') ? 'true' : 'false' }},
-                                        init() {
-                                            if ({{ request()->is('admin/theses*') ? 'true' : 'false' }}) {
-                                                this.$nextTick(() => this.$refs.theses.scrollIntoView({ behavior: 'smooth' }));
-                                            }
-                                        }
-                                    }" x-ref="theses" class="pt-1">
-                                        <button type="button"
-                                            class="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->is('admin/theses*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}"
-                                            :class="{ 'bg-slate-100 dark:bg-slate-700': open }"
-                                            @click="open = !open; if (open) $nextTick(() => $refs.theses.scrollIntoView({ behavior: 'smooth' }))">
-                                            <img src="{{ asset('assets/images/databases/' . $database->image) }}" alt="icon"
-                                                class="object-contain w-8 h-8 p-0.5 bg-white dark:bg-gray-200 rounded">
-                                            <span
-                                                class="flex-1 text-left ms-3 rtl:text-right whitespace-nowrap">{{ $database->name }}</span>
-                                            <svg class="w-3 h-3 transition-transform duration-200 transform"
-                                                :class="{ 'rotate-180': open }" aria-hidden="true"
-                                                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
-                                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                                    stroke-width="2" d="m1 1 4 4 4-4" />
-                                            </svg>
-                                        </button>
-                                        <ul x-show="open" x-transition class="py-2 ml-2 space-y-2">
-                                            <li>
-                                                <a href="{{ route('admin.theses.index') }}"
-                                                    class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->is('admin/theses') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">Theses</a>
-                                            </li>
-                                            <li>
-                                                <a href="{{ url('admin/theses_types') }}"
-                                                    class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->is('admin/theses_types') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">
-                                                    Types</a>
-                                            </li>
-                                            <li>
-                                                <a href="{{ url('admin/theses_categories') }}"
-                                                    class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->is('admin/theses_categories') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">
-                                                    Categories</a>
-                                            </li>
-                                            {{-- <li>
-                                    <a href="{{ url('admin/theses_sub_categories') }}"
-                                        class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->is('admin/theses_sub_categories') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">
-                                        Sub-Categories</a>
-                                </li> --}}
-                                        </ul>
-                                    </li>
-                                @endcan
-                            @break
-
-                            @case('journals')
-                                @can('view journal')
-                                    <li x-data="{
-                                        open: {{ request()->is('admin/journals*') ? 'true' : 'false' }},
-                                        init() {
-                                            if ({{ request()->is('admin/journals*') ? 'true' : 'false' }}) {
-                                                this.$nextTick(() => this.$refs.journals.scrollIntoView({ behavior: 'smooth' }));
-                                            }
-                                        }
-                                    }" x-ref="journals" class="pt-1">
-                                        <button type="button"
-                                            class="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->is('admin/journals*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}"
-                                            :class="{ 'bg-slate-100 dark:bg-slate-700': open }"
-                                            @click="open = !open; if (open) $nextTick(() => $refs.journals.scrollIntoView({ behavior: 'smooth' }))">
-                                            <img src="{{ asset('assets/images/databases/' . $database->image) }}" alt="icon"
-                                                class="object-contain w-8 h-8 p-0.5 bg-white dark:bg-gray-200 rounded">
-                                            <span
-                                                class="flex-1 text-left ms-3 rtl:text-right whitespace-nowrap">{{ $database->name }}</span>
-                                            <svg class="w-3 h-3 transition-transform duration-200 transform"
-                                                :class="{ 'rotate-180': open }" aria-hidden="true"
-                                                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
-                                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                                    stroke-width="2" d="m1 1 4 4 4-4" />
-                                            </svg>
-                                        </button>
-                                        <ul x-show="open" x-transition class="py-2 ml-2 space-y-2">
-                                            <li>
-                                                <a href="{{ route('admin.journals.index') }}"
-                                                    class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->is('admin/journals') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">Journals</a>
-                                            </li>
-                                            <li>
-                                                <a href="{{ url('admin/journals_types') }}"
-                                                    class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->is('admin/journals_types') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">
-                                                    Types</a>
-                                            </li>
-                                            <li>
-                                                <a href="{{ url('admin/journals_categories') }}"
-                                                    class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->is('admin/journals_categories') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">
-                                                    Categories</a>
-                                            </li>
-                                            {{-- <li>
-                                    <a href="{{ url('admin/journals_sub_categories') }}"
-                                        class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->is('admin/journals_sub_categories') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">
-                                        Sub-Categories</a>
-                                </li> --}}
-                                        </ul>
-                                    </li>
-                                @endcan
-                            @break
-
-                            @case('articles')
-                                @can('view article')
-                                    <li x-data="{
-                                        open: {{ request()->is('admin/articles*') ? 'true' : 'false' }},
-                                        init() {
-                                            if ({{ request()->is('admin/articles*') ? 'true' : 'false' }}) {
-                                                this.$nextTick(() => this.$refs.articles.scrollIntoView({ behavior: 'smooth' }));
-                                            }
-                                        }
-                                    }" x-ref="articles" class="pt-1">
-                                        <button type="button"
-                                            class="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->is('admin/articles*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}"
-                                            :class="{ 'bg-slate-100 dark:bg-slate-700': open }"
-                                            @click="open = !open; if (open) $nextTick(() => $refs.articles.scrollIntoView({ behavior: 'smooth' }))">
-                                            <img src="{{ asset('assets/images/databases/' . $database->image) }}" alt="icon"
-                                                class="object-contain w-8 h-8 p-0.5 bg-white dark:bg-gray-200 rounded">
-                                            <span
-                                                class="flex-1 text-left ms-3 rtl:text-right whitespace-nowrap">{{ $database->name }}</span>
-                                            <svg class="w-3 h-3 transition-transform duration-200 transform"
-                                                :class="{ 'rotate-180': open }" aria-hidden="true"
-                                                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
-                                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                                    stroke-width="2" d="m1 1 4 4 4-4" />
-                                            </svg>
-                                        </button>
-                                        <ul x-show="open" x-transition class="py-2 ml-2 space-y-2">
-                                            <li>
-                                                <a href="{{ route('admin.articles.index') }}"
-                                                    class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->is('admin/articles') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">Articles</a>
-                                            </li>
-                                            <li>
-                                                <a href="{{ url('admin/articles_types') }}"
-                                                    class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->is('admin/articles_types') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">
-                                                    Types</a>
-                                            </li>
-                                            <li>
-                                                <a href="{{ url('admin/articles_categories') }}"
-                                                    class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->is('admin/articles_categories') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">
-                                                    Categories</a>
-                                            </li>
-                                            <li>
-                                                <a href="{{ url('admin/articles_sub_categories') }}"
-                                                    class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->is('admin/articles_sub_categories') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">
-                                                    Sub-Categories</a>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                @endcan
-                            @break
-                        @endswitch
-                        @empty
-                            <li class="mt-1">No Databases...</li>
-                        @endforelse
-
-                    </ul>
-
-                    <ul class="pt-5 mt-5 space-y-1 border-t border-gray-200 dark:border-gray-700">
-                        @can('view keyword')
-                            <li x-data="{
-                                init() {
-                                    if ({{ request()->is('admin/keywords*') ? 'true' : 'false' }}) {
-                                        this.$nextTick(() => this.$refs.keywords.scrollIntoView({ behavior: 'smooth' }));
-                                    }
-                                }
-                            }" x-ref="keywords">
-                                <x-sidebar-item href="{{ route('admin.keywords.index') }}"
-                                    class="{{ request()->is('admin/keywords*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">
-                                    <img src="{{ asset('assets/icons/keyword.png') }}" alt="icon"
-                                        class="object-contain w-8 h-8 p-0.5 bg-white dark:bg-gray-200 rounded">
-                                    <span class="ml-3">Keywords</span>
-                                </x-sidebar-item>
-                            </li>
-                        @endcan
-
-                        @can('view location')
-                            <li x-data="{
-                                init() {
-                                    if ({{ request()->is('admin/locations*') ? 'true' : 'false' }}) {
-                                        this.$nextTick(() => this.$refs.locations.scrollIntoView({ behavior: 'smooth' }));
-                                    }
-                                }
-                            }" x-ref="locations">
-                                <x-sidebar-item href="{{ route('admin.locations.index') }}"
-                                    class="{{ request()->is('admin/locations*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">
-                                    <img src="{{ asset('assets/icons/location.png') }}" alt="icon"
-                                        class="object-contain w-8 h-8 p-0.5 bg-white dark:bg-gray-200 rounded">
-                                    <span class="ml-3">Locations</span>
-                                </x-sidebar-item>
-                            </li>
-                        @endcan
-
-                        @can('view language')
-                            <li x-data="{
-                                init() {
-                                    if ({{ request()->is('admin/languages*') ? 'true' : 'false' }}) {
-                                        this.$nextTick(() => this.$refs.languages.scrollIntoView({ behavior: 'smooth' }));
-                                    }
-                                }
-                            }" x-ref="languages">
-                                <x-sidebar-item href="{{ route('admin.languages.index') }}"
-                                    class="{{ request()->is('admin/languages*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">
-                                    <img src="{{ asset('assets/icons/language.png') }}" alt="icon"
-                                        class="object-contain w-8 h-8 p-0.5 bg-white dark:bg-gray-200 rounded">
-                                    <span class="ml-3">Languages</span>
-                                </x-sidebar-item>
-                            </li>
-                        @endcan
-
-                        {{-- @can('view major')
-                            <li x-data="{
-                                init() {
-                                    if ({{ request()->is('admin/majors*') ? 'true' : 'false' }}) {
-                                        this.$nextTick(() => this.$refs.majors.scrollIntoView({ behavior: 'smooth' }));
-                                    }
-                                }
-                            }" x-ref="majors">
-                                <x-sidebar-item href="{{ route('admin.majors.index') }}"
-                                    class="{{ request()->is('admin/majors*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">
-                                    <img src="{{ asset('assets/icons/major.png') }}" alt="icon"
-                                        class="object-contain w-8 h-8 p-0.5 bg-white dark:bg-gray-200 rounded">
-                                    <span class="ml-3">Majors</span>
-                                </x-sidebar-item>
-                            </li>
-                            @endcan --}}
-
-                        {{-- <li>
-                        <x-sidebar-item href="#">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-clipboard-minus">
-                                <rect width="8" height="4" x="8" y="2" rx="1" ry="1" />
-                                <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
-                                <path d="M9 14h6" />
-                            </svg>
-                            <span class="ml-3">Reports</span>
-                        </x-sidebar-item>
-                    </li> --}}
-                        @can('view people')
-                            <ul>
-                                <li x-data="{
-                                    open: {{ request()->is('admin/people*') ? 'true' : 'false' }},
-                                    init() {
-                                        if ({{ request()->is('admin/people*') ? 'true' : 'false' }}) {
-                                            this.$nextTick(() => this.$refs.dropdown.scrollIntoView({ behavior: 'smooth' }));
-                                        }
-                                    }
-                                }">
-                                    <button type="button"
-                                        class="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->is('admin/people*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}"
-                                        :class="{ 'bg-slate-100 dark:bg-slate-700': open }"
-                                        @click="open = !open; if (open) $nextTick(() => $refs.dropdown.scrollIntoView({ behavior: 'smooth' }))">
-                                        <img src="{{ asset('assets/icons/people.png') }}" alt="icon"
-                                            class="object-contain w-8 h-8 bg-white rounded dark:bg-gray-200">
-                                        <span class="flex-1 text-left ms-3 rtl:text-right whitespace-nowrap">People</span>
-                                        <svg class="w-3 h-3 transition-transform duration-200 transform"
-                                            :class="{ 'rotate-180': open }" aria-hidden="true"
-                                            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
-                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                                stroke-width="2" d="m1 1 4 4 4-4" />
-                                        </svg>
-                                    </button>
-                                    <ul x-show="open" x-transition class="py-2 ml-2 space-y-2" x-ref="dropdown">
-                                        <li>
-                                            <a href="{{ url('admin/people/authors') }}"
-                                                class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->is('admin/people/authors*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">
-                                                Authors
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="{{ url('admin/people/publishers') }}"
-                                                class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->is('admin/people/publishers*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">
-                                                Publishers
-                                            </a>
-                                        </li>
-                                        {{-- <li>
-                                            <a href="{{ url('admin/people/students') }}"
-                                                class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->is('admin/people/students*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">
-                                                Students
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="{{ url('admin/people/supervisors') }}"
-                                                class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->is('admin/people/supervisors*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">
-                                                Supervisors
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="{{ url('admin/people/lecturers') }}"
-                                                class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->is('admin/people/lecturers*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">
-                                                Lecturers
-                                            </a>
-                                        </li> --}}
-                                    </ul>
-                                </li>
-                            </ul>
-                        @endcan
-                    </ul>
-
                     @can('view setting')
                         <ul class="pt-5 pb-5 mt-5 space-y-2 border-t border-gray-200 dark:border-gray-700">
                             <li x-data="{
@@ -1037,8 +481,8 @@
                                         class="object-contain w-8 h-8 p-0.5 bg-white dark:bg-gray-200 rounded">
                                     <span class="flex-1 text-left ms-3 rtl:text-right whitespace-nowrap">Settings</span>
                                     <svg class="w-3 h-3 transition-transform duration-200 transform"
-                                        :class="{ 'rotate-180': open }" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                                        fill="none" viewBox="0 0 10 6">
+                                        :class="{ 'rotate-180': open }" aria-hidden="true"
+                                        xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
                                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
                                             stroke-width="2" d="m1 1 4 4 4-4" />
                                     </svg>
@@ -1088,139 +532,139 @@
                         </ul>
                     @endcan
 
-                </div>
-                <div
-                    class="absolute bottom-0 z-20 flex justify-center w-full p-4 space-x-4 bg-white border-t dark:border-t-slate-600 dark:bg-gray-800">
-                    <button id="theme-toggle" type="button"
-                        class="p-2 text-sm text-gray-600 rounded-lg hover:text-gray-500 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700">
-                        <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path>
-                        </svg>
-                        <svg id="theme-toggle-light-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path
-                                d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z"
-                                fill-rule="evenodd" clip-rule="evenodd"></path>
-                        </svg>
-                    </button>
+            </div>
+            <div
+                class="absolute bottom-0 z-20 flex justify-center w-full p-4 space-x-4 bg-white border-t dark:border-t-slate-600 dark:bg-gray-800">
+                <button id="theme-toggle" type="button"
+                    class="p-2 text-sm text-gray-600 rounded-lg hover:text-gray-500 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700">
+                    <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path>
+                    </svg>
+                    <svg id="theme-toggle-light-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z"
+                            fill-rule="evenodd" clip-rule="evenodd"></path>
+                    </svg>
+                </button>
 
-                    <a href="{{ url('/profile') }}" data-tooltip-target="tooltip-settings"
-                        class="inline-flex justify-center p-2 text-gray-600 rounded cursor-pointer dark:text-gray-300 dark:hover:text-white hover:text-gray-900 hover:bg-gray-100 dark:hover:bg-gray-600">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                            stroke-linejoin="round" class="lucide lucide-user-round-cog">
-                            <path d="M2 21a8 8 0 0 1 10.434-7.62" />
-                            <circle cx="10" cy="8" r="5" />
-                            <circle cx="18" cy="18" r="3" />
-                            <path d="m19.5 14.3-.4.9" />
-                            <path d="m16.9 20.8-.4.9" />
-                            <path d="m21.7 19.5-.9-.4" />
-                            <path d="m15.2 16.9-.9-.4" />
-                            <path d="m21.7 16.5-.9.4" />
-                            <path d="m15.2 19.1-.9.4" />
-                            <path d="m19.5 21.7-.4-.9" />
-                            <path d="m16.9 15.2-.4-.9" />
-                        </svg>
-                        </svg>
-                    </a>
-                    <div id="tooltip-settings" role="tooltip"
-                        class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip">
-                        Account Settings
-                        <div class="tooltip-arrow" data-popper-arrow></div>
-                    </div>
-                    <button type="button" data-dropdown-toggle="language-dropdown"
-                        class="inline-flex justify-center p-2 text-gray-500 rounded cursor-pointer dark:hover:text-white dark:text-gray-400 hover:text-gray-900 hover:bg-gray-100 dark:hover:bg-gray-600">
-                        @if (app()->getLocale() == 'kh')
+                <a href="{{ url('/profile') }}" data-tooltip-target="tooltip-settings"
+                    class="inline-flex justify-center p-2 text-gray-600 rounded cursor-pointer dark:text-gray-300 dark:hover:text-white hover:text-gray-900 hover:bg-gray-100 dark:hover:bg-gray-600">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" class="lucide lucide-user-round-cog">
+                        <path d="M2 21a8 8 0 0 1 10.434-7.62" />
+                        <circle cx="10" cy="8" r="5" />
+                        <circle cx="18" cy="18" r="3" />
+                        <path d="m19.5 14.3-.4.9" />
+                        <path d="m16.9 20.8-.4.9" />
+                        <path d="m21.7 19.5-.9-.4" />
+                        <path d="m15.2 16.9-.9-.4" />
+                        <path d="m21.7 16.5-.9.4" />
+                        <path d="m15.2 19.1-.9.4" />
+                        <path d="m19.5 21.7-.4-.9" />
+                        <path d="m16.9 15.2-.4-.9" />
+                    </svg>
+                    </svg>
+                </a>
+                <div id="tooltip-settings" role="tooltip"
+                    class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip">
+                    Account Settings
+                    <div class="tooltip-arrow" data-popper-arrow></div>
+                </div>
+                <button type="button" data-dropdown-toggle="language-dropdown"
+                    class="inline-flex justify-center p-2 text-gray-500 rounded cursor-pointer dark:hover:text-white dark:text-gray-400 hover:text-gray-900 hover:bg-gray-100 dark:hover:bg-gray-600">
+                    @if (app()->getLocale() == 'kh')
                         <img src="{{ asset('assets/icons/khmer.png') }}" alt="icon"
-                        class="object-contain w-6 h-6 border rounded-full">
-                        @else
+                            class="object-contain w-6 h-6 border rounded-full">
+                    @else
                         <img src="{{ asset('assets/icons/english.png') }}" alt="icon"
-                        class="object-contain w-6 h-6 border rounded-full">
-                        @endif
+                            class="object-contain w-6 h-6 border rounded-full">
+                    @endif
 
-                    </button>
-                    <!-- Dropdown -->
-                    <div class="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded shadow dark:bg-gray-700"
-                        id="language-dropdown">
-                        <ul class="py-1" role="none">
-                            <li>
-                                <a href="{{ url('switch-language/kh') }}"
-                                    class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:text-white dark:text-gray-300 dark:hover:bg-gray-600"
-                                    role="menuitem">
-                                    <div class="inline-flex items-center">
-                                        <img src="{{ asset('assets/icons/khmer.png') }}" alt="icon"
-                                            class="object-contain w-6 h-6 mr-2 border rounded-full">
-                                        Khmer
-                                    </div>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="{{ url('switch-language/en') }}"
-                                    class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:text-white dark:text-gray-300 dark:hover:bg-gray-600"
-                                    role="menuitem">
-                                    <div class="inline-flex items-center">
-                                        <img src="{{ asset('assets/icons/english.png') }}" alt="icon"
-                                            class="object-contain w-6 h-6 mr-2 border rounded-full">
-                                        English
-                                    </div>
-                                </a>
-                            </li>
-                        </ul>
+                </button>
+                <!-- Dropdown -->
+                <div class="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded shadow dark:bg-gray-700"
+                    id="language-dropdown">
+                    <ul class="py-1" role="none">
+                        <li>
+                            <a href="{{ url('switch-language/kh') }}"
+                                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:text-white dark:text-gray-300 dark:hover:bg-gray-600"
+                                role="menuitem">
+                                <div class="inline-flex items-center">
+                                    <img src="{{ asset('assets/icons/khmer.png') }}" alt="icon"
+                                        class="object-contain w-6 h-6 mr-2 border rounded-full">
+                                    Khmer
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ url('switch-language/en') }}"
+                                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:text-white dark:text-gray-300 dark:hover:bg-gray-600"
+                                role="menuitem">
+                                <div class="inline-flex items-center">
+                                    <img src="{{ asset('assets/icons/english.png') }}" alt="icon"
+                                        class="object-contain w-6 h-6 mr-2 border rounded-full">
+                                    English
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </aside>
+
+        <main class="h-auto p-4 pt-20 md:ml-64 dark:bg-gray-800">
+            <section class="dark:bg-gray-900">
+                <div class="mx-auto max-w-screen-2xl ">
+                    <div
+                        class="relative overflow-hidden bg-white shadow-md dark:bg-gray-800 sm:rounded-lg  min-h-[80vh] mb-4">
+                        @yield('content')
                     </div>
                 </div>
-            </aside>
+            </section>
+        </main>
+    </div>
 
-            <main class="h-auto p-4 pt-20 md:ml-64 dark:bg-gray-800">
-                <section class="dark:bg-gray-900">
-                    <div class="mx-auto max-w-screen-2xl ">
-                        <div
-                            class="relative overflow-hidden bg-white shadow-md dark:bg-gray-800 sm:rounded-lg  min-h-[80vh] mb-4">
-                            @yield('content')
-                        </div>
-                    </div>
-                </section>
-            </main>
-        </div>
+    <script src="{{ asset('assets/js/flowbite2.3.js') }}"></script>
+    <script src="{{ asset('assets/js/glightbox.js') }}"></script>
+    <script src="{{ asset('assets/js/glightbox.config.js') }}"></script>
+    <script src="{{ asset('/assets/ckeditor/ckeditor4/ckeditor.js') }}"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+        crossorigin="anonymous"></script>
+    <script>
+        // let options = {
+        //     filebrowserImageBrowseUrl: "{{ asset('laravel-filemanager?type=Images') }}",
+        //     filebrowserImageUploadUrl: "{{ asset('laravel-filemanager/upload?type=Images&_token=') }}",
+        //     filebrowserBrowseUrl: "{{ asset('laravel-filemanager?type=Files') }}",
+        //     filebrowserUploadUrl: "{{ asset('laravel-filemanager/upload?type=Files&_token=') }}"
+        // };
+        // let areas = Array('details', 'description', 'description_kh');
+        // areas.forEach(function(area) {
+        //     CKEDITOR.replace(area, options);
+        // });
+    </script>
+    <script>
+        // Prevent Submit from click ENTER key
+        const form = document.querySelector('form');
+        form.addEventListener('keydown', function(event) {
+            // Check if the key pressed is Enter (key code 13)
+            if (event.keyCode === 13) {
+                event.preventDefault(); // Prevent form submission
+            }
+        });
+    </script>
+    {{-- @stack('scripts') --}}
 
-        <script src="{{ asset('assets/js/flowbite2.3.js') }}"></script>
-        <script src="{{ asset('assets/js/glightbox.js') }}"></script>
-        <script src="{{ asset('assets/js/glightbox.config.js') }}"></script>
-        <script src="{{ asset('/assets/ckeditor/ckeditor4/ckeditor.js') }}"></script>
-        <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
-            crossorigin="anonymous"></script>
-        <script>
-            // let options = {
-            //     filebrowserImageBrowseUrl: "{{ asset('laravel-filemanager?type=Images') }}",
-            //     filebrowserImageUploadUrl: "{{ asset('laravel-filemanager/upload?type=Images&_token=') }}",
-            //     filebrowserBrowseUrl: "{{ asset('laravel-filemanager?type=Files') }}",
-            //     filebrowserUploadUrl: "{{ asset('laravel-filemanager/upload?type=Files&_token=') }}"
-            // };
-            // let areas = Array('details', 'description', 'description_kh');
-            // areas.forEach(function(area) {
-            //     CKEDITOR.replace(area, options);
-            // });
-        </script>
-        <script>
-            // Prevent Submit from click ENTER key
-            const form = document.querySelector('form');
-            form.addEventListener('keydown', function(event) {
-                // Check if the key pressed is Enter (key code 13)
-                if (event.keyCode === 13) {
-                    event.preventDefault(); // Prevent form submission
-                }
-            });
-        </script>
-        {{-- @stack('scripts') --}}
-
-        {{-- <script>
+    {{-- <script>
         document.addEventListener('livewire:navigated', () => {
             initFlowbite();
         });
     </script> --}}
 
 
-    </body>
+</body>
 
 
-    </html>
+</html>
