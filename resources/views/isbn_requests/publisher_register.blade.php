@@ -103,19 +103,19 @@
             <p class="mt-2 text-sm">Estimate the quantity of publications you produce each year:</p>
             <div class="flex items-center mt-4 space-x-4">
                 <label class="flex items-center space-x-2">
-                    <input type="radio" name="publicationsEachYear" value="less_than_1" class="border rounded">
+                    <input type="radio" name="publicationsEachYear" value="less_than_1" class="border rounded" {{ old('publicationsEachYear') == 'less_than_1' ? 'checked' : ''}}>
                     <span>Less than 1</span>
                 </label>
                 <label class="flex items-center space-x-2">
-                    <input type="radio" name="publicationsEachYear" value="1_to_2" class="border rounded">
+                    <input type="radio" name="publicationsEachYear" value="1_to_2" class="border rounded" {{ old('publicationsEachYear') == '1_to_2' ? 'checked' : ''}}>
                     <span>1 - 2</span>
                 </label>
                 <label class="flex items-center space-x-2">
-                    <input type="radio" name="publicationsEachYear" value="3_to_10" class="border rounded">
+                    <input type="radio" name="publicationsEachYear" value="3_to_10" class="border rounded" {{ old('publicationsEachYear') == '3_to_10' ? 'checked' : ''}}>
                     <span>3 - 10</span>
                 </label>
                 <label class="flex items-center space-x-2">
-                    <input type="radio" name="publicationsEachYear" value="more_than_10" class="border rounded">
+                    <input type="radio" name="publicationsEachYear" value="more_than_10" class="border rounded" {{ old('publicationsEachYear') == 'more_than_10' ? 'checked' : ''}}>
                     <span>More than 10</span>
                 </label>
             </div>
