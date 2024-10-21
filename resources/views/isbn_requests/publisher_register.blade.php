@@ -1,6 +1,7 @@
 @extends('layouts.isbn')
 
 @section('content')
+    <script src="https://www.google.com/recaptcha/api.js"></script>
     <div class="">
 
         <header class="text-center">
@@ -10,7 +11,7 @@
         <!-- Publisher Details Section -->
         <section class="mt-6">
 
-            <form method="POST" action="{{ url('/publisher_register') }}">
+            <form id="register-form" method="POST" action="{{ url('/publisher_register') }}">
                 @csrf
                 {{-- <h3 class="text-xl font-bold">
                     {{ __('messages.loginDetails') }}
@@ -20,7 +21,7 @@
                 <div class="mt-4">
                     <x-input-label for="email" :value="__('Email')" />
                     <x-text-input id="email" class="block w-full mt-1" type="email" name="email" :value="old('email')"
-                         autocomplete="username" />
+                        autocomplete="username" />
                     <x-input-error :messages="$errors->get('email')" class="mt-2" />
                 </div>
 
@@ -39,7 +40,7 @@
                     <x-input-label for="password_confirmation" :value="__('Confirm Password')" />
 
                     <x-text-input id="password_confirmation" class="block w-full mt-1" type="password"
-                        name="password_confirmation"  autocomplete="new-password" />
+                        name="password_confirmation" autocomplete="new-password" />
 
                     <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
                 </div>
@@ -51,26 +52,26 @@
                 <div class="grid grid-cols-1 gap-4 mt-4 md:grid-cols-1">
                     <div class="">
                         <x-input-label for="name" :value="__('messages.name')" />
-                        <x-text-input id="name" class="block w-full mt-1" type="text" name="name" :value="old('name')"
-                             autocomplete="username" />
+                        <x-text-input id="name" class="block w-full mt-1" type="text" name="name"
+                            :value="old('name')" autocomplete="username" />
                         <x-input-error :messages="$errors->get('name')" class="mt-2" />
                     </div>
                     <div class="">
                         <x-input-label for="address" :value="__('messages.address')" />
-                        <x-text-input id="address" class="block w-full mt-1" type="text" name="address" :value="old('address')"
-                             autocomplete="address" />
+                        <x-text-input id="address" class="block w-full mt-1" type="text" name="address"
+                            :value="old('address')" autocomplete="address" />
                         <x-input-error :messages="$errors->get('address')" class="mt-2" />
                     </div>
                     <div class="">
                         <x-input-label for="phone" :value="__('messages.phone')" />
-                        <x-text-input id="phone" class="block w-full mt-1" type="text" name="phone" :value="old('phone')"
-                             autocomplete="phone" />
+                        <x-text-input id="phone" class="block w-full mt-1" type="text" name="phone"
+                            :value="old('phone')" autocomplete="phone" />
                         <x-input-error :messages="$errors->get('phone')" class="mt-2" />
                     </div>
                     <div class="">
                         <x-input-label for="facebookName" :value="__('messages.facebookName')" />​
-                        <x-text-input id="facebookName" class="block w-full mt-1" type="text" name="facebookName" :value="old('facebookName')"
-                             autocomplete="facebookName" />
+                        <x-text-input id="facebookName" class="block w-full mt-1" type="text" name="facebookName"
+                            :value="old('facebookName')" autocomplete="facebookName" />
                         <x-input-error :messages="$errors->get('facebookName')" class="mt-2" />
                     </div>
                     <div class="">
@@ -103,19 +104,23 @@
             <p class="mt-2 text-sm">Estimate the quantity of publications you produce each year:</p>
             <div class="flex items-center mt-4 space-x-4">
                 <label class="flex items-center space-x-2">
-                    <input type="radio" name="publicationsEachYear" value="less_than_1" class="border rounded" {{ old('publicationsEachYear') == 'less_than_1' ? 'checked' : ''}}>
+                    <input type="radio" name="publicationsEachYear" value="less_than_1" class="border rounded"
+                        {{ old('publicationsEachYear') == 'less_than_1' ? 'checked' : '' }}>
                     <span>Less than 1</span>
                 </label>
                 <label class="flex items-center space-x-2">
-                    <input type="radio" name="publicationsEachYear" value="1_to_2" class="border rounded" {{ old('publicationsEachYear') == '1_to_2' ? 'checked' : ''}}>
+                    <input type="radio" name="publicationsEachYear" value="1_to_2" class="border rounded"
+                        {{ old('publicationsEachYear') == '1_to_2' ? 'checked' : '' }}>
                     <span>1 - 2</span>
                 </label>
                 <label class="flex items-center space-x-2">
-                    <input type="radio" name="publicationsEachYear" value="3_to_10" class="border rounded" {{ old('publicationsEachYear') == '3_to_10' ? 'checked' : ''}}>
+                    <input type="radio" name="publicationsEachYear" value="3_to_10" class="border rounded"
+                        {{ old('publicationsEachYear') == '3_to_10' ? 'checked' : '' }}>
                     <span>3 - 10</span>
                 </label>
                 <label class="flex items-center space-x-2">
-                    <input type="radio" name="publicationsEachYear" value="more_than_10" class="border rounded" {{ old('publicationsEachYear') == 'more_than_10' ? 'checked' : ''}}>
+                    <input type="radio" name="publicationsEachYear" value="more_than_10" class="border rounded"
+                        {{ old('publicationsEachYear') == 'more_than_10' ? 'checked' : '' }}>
                     <span>More than 10</span>
                 </label>
             </div>
@@ -123,14 +128,22 @@
         </section>
 
         <div class="flex items-center justify-end mt-4">
-            <a class="text-sm text-gray-600 rounded-md hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ url('publisher_login') }}">
+            <a class="text-sm text-gray-600 rounded-md hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                href="{{ url('publisher_login') }}">
                 {{ __('Already Has Account?') }} <strong class="underline">Click Here</strong>
             </a>
-            <x-submit-button class="ms-4">
+            <x-submit-button class="ms-4" class="g-recaptcha" data-sitekey="6Le9fWcqAAAAAMHTv_-wYgdIBJdAh6gGniNbHCE8"
+                data-callback='onSubmit' data-action='submit'>
                 {{ __('Register') }}
             </x-submit-button>
         </div>
         </form>
 
     </div>
+
+    <script>
+        function onSubmit(token) {
+            document.getElementById("register-form").submit();
+        }
+    </script>
 @endsection
