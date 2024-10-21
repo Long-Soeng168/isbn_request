@@ -166,17 +166,17 @@ class AdminUserController extends Controller
     {
         // return $user;
         $request->validate([
-            'current_password' => ['required'],
+            // 'current_password' => ['required'],
             'password' => ['required', 'confirmed'],
         ]);
 
-        $currentPassword = $request->input('current_password');
+        // $currentPassword = $request->input('current_password');
         $newPassword = $request->input('password');
 
         // Check if the current password matches the password stored in the database for the user
-        if (!Hash::check($currentPassword, $user->password)) {
-            return redirect()->back()->withErrors(['current_password' => 'The current password is incorrect.'])->withInput();
-        }
+        // if (!Hash::check($currentPassword, $user->password)) {
+        //     return redirect()->back()->withErrors(['current_password' => 'The current password is incorrect.'])->withInput();
+        // }
 
         // Update the user's password
         $user->update([

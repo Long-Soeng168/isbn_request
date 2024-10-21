@@ -70,6 +70,7 @@
             @if (Route::has('login'))
                 @auth
                     <a href="{{ url('admin/dashboard') }}">Dashboard</a>
+                    <a href="{{ url('/logout') }}">Logout</a>
                 @else
                     <a href="{{ url('publisher_login') }}">Log in</a>
 
