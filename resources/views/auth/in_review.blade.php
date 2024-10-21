@@ -11,7 +11,7 @@
 <body class="flex items-center justify-center min-h-screen bg-gray-100">
     <div class="flex flex-col items-center p-8 bg-white rounded-lg shadow-lg">
         <img src="{{ asset('assets/icons/in_review.png') }}" class="h-20 aspect-square" alt="">
-        <h1 class="my-4 text-2xl font-bold text-yellow-600 max-w-[60ch]">
+        <h1 class="my-4 text-2xl font-bold text-yellow-600 max-w-[45ch] text-center">
             @if (request()->user()?->status == 1)
                 <span class="w-4 py-3 font-semibold text-green-700">
                     Your Account has been Approved.
