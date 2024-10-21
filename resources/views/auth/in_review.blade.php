@@ -12,18 +12,17 @@
     <div class="flex flex-col items-center p-8 bg-white rounded-lg shadow-lg">
         <img src="{{ asset('assets/icons/in_review.png') }}" class="h-20 aspect-square" alt="">
         <h1 class="my-4 text-2xl font-bold text-yellow-600">
-            Your account
             @if (request()->user()?->status == 1)
                 <span class="w-4 py-3 font-semibold text-green-700">
-                    Approved
+                    Your Account has been Approved.
                 </span>
             @elseif(request()->user()?->status == 0)
                 <span class="w-4 py-3 font-semibold text-yellow-600">
-                    In Review
+                    Your account is currently under review. You will receive an email notification once your account has been approved.
                 </span>
             @else
                 <span class="w-4 py-3 font-semibold text-red-700">
-                    Rejected
+                    Your Account has been Rejected.
                 </span>
             @endif
         </h1>
