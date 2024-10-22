@@ -65,36 +65,9 @@
 
 </head>
 
-<body class="px-4 bg-gray-100">
-    {{-- Start Language --}}
-    <div class="items-end justify-between max-w-3xl gap-2 py-8 mx-auto md:flex">
-        {{-- <div class="flex items-center gap-2">
-            <div>
-                <img class="object-contain w-24 p-1 aspect-square" src="{{ asset('assets/images/logo/nlclogo.png') }}" alt="">
-            </div>
-            <div class="flex flex-col pt-2">
-                <p class="text-xl text-gray-700 font-moul">បណ្ណាល័យជាតិកម្ពុជា</p>
-                <p class="font-semibold text-gray-500 text-md font-poppins">National Library of Cambodia</p>
-                <p class="font-semibold text-gray-500 text-md font-poppins">Bibliothèque Nationale du Cambodge</p>
-            </div>
-        </div> --}}
-        <div class="flex justify-start gap-1 mt-4">
-            {{-- <a href="{{ route('switch-language', ['locale' => 'kh']) }}" type="button"
-                class="{{ app()->getLocale() == 'kh' ? 'bg-gray-300' : '' }} inline-flex items-center justify-center p-2 text-sm font-medium text-gray-900 rounded-lg cursor-pointer dark:text-white hover:bg-gray-300 dark:hover:bg-gray-200 dark:hover:text-white">
-                <img class="w-5 h-5 rounded-full" src="{{ asset('assets/icons/khmer.png') }}" alt="" />
-            </a>
-            <a href="{{ route('switch-language', ['locale' => 'en']) }}" type="button"
-                class="{{ app()->getLocale() == 'en' ? 'bg-gray-300' : '' }} inline-flex items-center justify-center p-2 text-sm font-medium text-gray-900 rounded-lg cursor-pointer  dark:text-white hover:bg-gray-300 dark:hover:bg-gray-300 dark:hover:text-white">
-                <img class="w-5 h-5 rounded-full" src="{{ asset('assets/icons/english.png') }}" alt="" />
-            </a> --}}
-            {{-- <a href="{{ route('switch-language', ['locale' => 'fr']) }}" type="button"
-                class="{{ app()->getLocale() == 'fr' ? 'bg-gray-300' : '' }} inline-flex items-center justify-center p-2 text-sm font-medium text-gray-900 rounded-lg cursor-pointer  dark:text-white hover:bg-gray-300 dark:hover:bg-gray-300 dark:hover:text-white">
-                <img class="w-5 h-5 rounded-full" src="{{ asset('assets/icons/france.png') }}" alt="" />
-            </a> --}}
-        </div>
-    </div>
+<body class="">
     {{-- End Language --}}
-    <div class="max-w-3xl px-4 py-4 mx-auto mb-8 bg-white rounded-lg shadow">
+    <div class="">
         @yield('content')
     </div>
 </body>

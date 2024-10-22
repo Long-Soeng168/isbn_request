@@ -232,7 +232,14 @@ Route::group([
 ], function () {
     Route::resource('isbn_requests', IsbnRequestController::class);
     Route::resource('admin/books', BookController::class);
+    Route::get('admin/categories', [BookController::class, 'categories']);
+    Route::get('admin/sub_categories', [BookController::class, 'sub_categories']);
 });
+
+
+use App\Http\Controllers\VerificationController;
+
+Route::get('/send-sms', [VerificationController::class, 'sendSms']);
 
 Route::group([
     'middleware' => 'setLang',

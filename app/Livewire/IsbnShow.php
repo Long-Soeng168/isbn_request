@@ -90,6 +90,8 @@ class IsbnShow extends Component
                 'language' => $this->item->language,
                 'image' => $this->item->image,
                 'isbn' => $this->item->isbn,
+                'category_id' => $this->item->category_id,
+                'sub_category_id' => $this->item->sub_category_id,
                 'publisher_id' => $this->item->publisher_id,
                 'publisher_name' => $this->item->publisher?->name,
             ]);

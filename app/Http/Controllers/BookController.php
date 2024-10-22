@@ -32,5 +32,15 @@ class BookController extends Controller
         return view('books.edit', compact('id'));
      }
 
+     public function categories()
+    {
+        return view('admin.books.category');
+    }
+
+    public function sub_categories()
+    {
+        return view('admin.books.sub_category');
+    }
+
 
 }

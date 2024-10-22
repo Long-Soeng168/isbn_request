@@ -394,6 +394,47 @@
                             <span class="ml-3">Catalog</span>
                         </x-sidebar-item>
                     </li>
+                    @if (request()->user()->hasRole(['super-admin', 'admin']))
+                        <li x-data="{
+                            open: {{ request()->is('admin/categories*') || request()->is('admin/sub_categories*') ? 'true' : 'false' }},
+                            init() {
+                                if ({{ request()->is('admin/categories*') || request()->is('admin/sub_categories*') ? 'true' : 'false' }}) {
+                                    this.$nextTick(() => this.$refs.users.scrollIntoView({ behavior: 'smooth' }));
+                                }
+                            }
+                        }" x-ref="users" class="pt-1">
+                            <button type="button"
+                                class="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->is('admin/categories*') || request()->is('admin/sub_categories*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}"
+                                :class="{ 'bg-slate-100 dark:bg-slate-700': open }"
+                                @click="open = !open; if (open) $nextTick(() => $refs.users.scrollIntoView({ behavior: 'smooth' }))">
+                                <img src="{{ asset('assets/icons/menu.png') }}" alt="icon"
+                                    class="object-contain w-8 h-8 bg-white rounded dark:bg-gray-200">
+                                <span class="flex-1 text-left ms-3 rtl:text-right whitespace-nowrap">Categories</span>
+                                <svg class="w-3 h-3 transition-transform duration-200 transform"
+                                    :class="{ 'rotate-180': open }" aria-hidden="true"
+                                    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                        stroke-width="2" d="m1 1 4 4 4-4" />
+                                </svg>
+                            </button>
+                            <ul x-show="open" x-transition class="py-2 ml-2 space-y-2">
+                                <li>
+                                    <a href="{{ url('admin/categories') }}"
+                                        class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->is('admin/categories*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">
+                                        Categories
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{{ url('admin/sub_categories') }}"
+                                        class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->is('admin/sub_categories*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">
+                                        Sub Categories
+                                    </a>
+                                </li>
+
+
+                            </ul>
+                        </li>
+                    @endif
 
                     @can('view user')
                         <li x-data="{
@@ -463,74 +504,74 @@
                     </li> --}}
                 </ul>
 
-                    @can('view setting')
-                        <ul class="pt-5 pb-5 mt-5 space-y-2 border-t border-gray-200 dark:border-gray-700">
-                            <li x-data="{
-                                open: {{ request()->is('admin/settings*') ? 'true' : 'false' }},
-                                init() {
-                                    if ({{ request()->is('admin/settings*') ? 'true' : 'false' }}) {
-                                        this.$nextTick(() => this.$refs.dropdown.scrollIntoView({ behavior: 'smooth' }));
-                                    }
+                @can('view setting')
+                    <ul class="pt-5 pb-5 mt-5 space-y-2 border-t border-gray-200 dark:border-gray-700">
+                        <li x-data="{
+                            open: {{ request()->is('admin/settings*') ? 'true' : 'false' }},
+                            init() {
+                                if ({{ request()->is('admin/settings*') ? 'true' : 'false' }}) {
+                                    this.$nextTick(() => this.$refs.dropdown.scrollIntoView({ behavior: 'smooth' }));
                                 }
-                            }">
-                                <button type="button"
-                                    class="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->is('admin/settings*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}"
-                                    :class="{ 'bg-slate-100 dark:bg-slate-700': open }"
-                                    @click="open = !open; if (open) $nextTick(() => $refs.dropdown.scrollIntoView({ behavior: 'smooth' }))">
-                                    <img src="{{ asset('assets/icons/settings.png') }}" alt="icon"
-                                        class="object-contain w-8 h-8 p-0.5 bg-white dark:bg-gray-200 rounded">
-                                    <span class="flex-1 text-left ms-3 rtl:text-right whitespace-nowrap">Settings</span>
-                                    <svg class="w-3 h-3 transition-transform duration-200 transform"
-                                        :class="{ 'rotate-180': open }" aria-hidden="true"
-                                        xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
-                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                            stroke-width="2" d="m1 1 4 4 4-4" />
-                                    </svg>
-                                </button>
-                                <ul x-show="open" x-transition class="py-2 ml-2 space-y-2" x-ref="dropdown">
+                            }
+                        }">
+                            <button type="button"
+                                class="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->is('admin/settings*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}"
+                                :class="{ 'bg-slate-100 dark:bg-slate-700': open }"
+                                @click="open = !open; if (open) $nextTick(() => $refs.dropdown.scrollIntoView({ behavior: 'smooth' }))">
+                                <img src="{{ asset('assets/icons/settings.png') }}" alt="icon"
+                                    class="object-contain w-8 h-8 p-0.5 bg-white dark:bg-gray-200 rounded">
+                                <span class="flex-1 text-left ms-3 rtl:text-right whitespace-nowrap">Settings</span>
+                                <svg class="w-3 h-3 transition-transform duration-200 transform"
+                                    :class="{ 'rotate-180': open }" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                    fill="none" viewBox="0 0 10 6">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                        stroke-width="2" d="m1 1 4 4 4-4" />
+                                </svg>
+                            </button>
+                            <ul x-show="open" x-transition class="py-2 ml-2 space-y-2" x-ref="dropdown">
+                                <li>
+                                    <a href="{{ url('admin/settings/slides') }}"
+                                        class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->is('admin/settings/slides*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">
+                                        Slides
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{{ url('admin/settings/menus') }}"
+                                        class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->is('admin/settings/menus*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">
+                                        Menus
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{{ url('admin/settings/links') }}"
+                                        class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->is('admin/settings/links*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">
+                                        Links
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{{ url('admin/settings/footer/1/edit') }}"
+                                        class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->is('admin/settings/footer*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">
+                                        Footer
+                                    </a>
+                                </li>
+                                @can('view database')
                                     <li>
-                                        <a href="{{ url('admin/settings/slides') }}"
-                                            class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->is('admin/settings/slides*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">
-                                            Slides
+                                        <a href="{{ url('admin/settings/databases') }}"
+                                            class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->is('admin/settings/databases*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">
+                                            Databases
                                         </a>
                                     </li>
-                                    <li>
-                                        <a href="{{ url('admin/settings/menus') }}"
-                                            class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->is('admin/settings/menus*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">
-                                            Menus
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="{{ url('admin/settings/links') }}"
-                                            class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->is('admin/settings/links*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">
-                                            Links
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="{{ url('admin/settings/footer/1/edit') }}"
-                                            class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->is('admin/settings/footer*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">
-                                            Footer
-                                        </a>
-                                    </li>
-                                    @can('view database')
-                                        <li>
-                                            <a href="{{ url('admin/settings/databases') }}"
-                                                class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->is('admin/settings/databases*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">
-                                                Databases
-                                            </a>
-                                        </li>
-                                    @endcan
+                                @endcan
 
-                                    <li>
-                                        <a href="{{ url('admin/settings/website_infos/1/edit') }}"
-                                            class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->is('admin/settings/website_infos*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">
-                                            Website Info
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-                        </ul>
-                    @endcan
+                                <li>
+                                    <a href="{{ url('admin/settings/website_infos/1/edit') }}"
+                                        class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->is('admin/settings/website_infos*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">
+                                        Website Info
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                @endcan
 
             </div>
             <div

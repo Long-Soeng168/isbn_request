@@ -79,43 +79,46 @@
                 <div class="grid grid-cols-1 gap-4 mt-4 md:grid-cols-2">
                     <div class="">
                         <x-input-label for="title" :value="__('messages.title')" />
-                        <x-text-input wire:model='title' id="title" class="block w-full mt-1" type="text" name="title"
-                            :value="old('title')" autocomplete="title" />
+                        <x-text-input wire:model='title' id="title" class="block w-full mt-1" type="text"
+                            name="title" :value="old('title')" autocomplete="title" />
                         <x-input-error :messages="$errors->get('title')" class="mt-2" />
                     </div>
                     <div class="">
                         <x-input-label wire:model='authors' for="authors" :value="__('messages.authors')" />
-                        <x-text-input wire:model='authors' id="authors" class="block w-full mt-1" type="text" name="authors"
-                            :value="old('authors')" autocomplete="authors" />
+                        <x-text-input wire:model='authors' id="authors" class="block w-full mt-1" type="text"
+                            name="authors" :value="old('authors')" autocomplete="authors" />
                         <x-input-error :messages="$errors->get('authors')" class="mt-2" />
                     </div>
                     <div class="">
                         <x-input-label for="numberOfPages" :value="__('messages.numberOfPages')" />
-                        <x-text-input  wire:model='number_of_pages' id="numberOfPages" class="block w-full mt-1" type="text" name="numberOfPages" type='number'
-                            :value="old('numberOfPages')" autocomplete="numberOfPages" />
+                        <x-text-input wire:model='number_of_pages' id="numberOfPages" class="block w-full mt-1"
+                            type="text" name="numberOfPages" type='number' :value="old('numberOfPages')"
+                            autocomplete="numberOfPages" />
                         <x-input-error :messages="$errors->get('number_of_pages')" class="mt-2" />
                     </div>
                     <div class="">
                         <x-input-label for="format" :value="__('messages.format')" />
-                        <x-text-input wire:model='format' id="format" class="block w-full mt-1" type="text" name="format"
-                            :value="old('format')" autocomplete="format" />
+                        <x-text-input wire:model='format' id="format" class="block w-full mt-1" type="text"
+                            name="format" :value="old('format')" autocomplete="format" />
                         <x-input-error :messages="$errors->get('format')" class="mt-2" />
                     </div>
                     <div class="">
                         <x-input-label for="price" :value="__('messages.price') . ' (៛)'" />
-                        <x-text-input wire:model='price' id="price" class="block w-full mt-1" type="number" name="price" placeholder='Example : 45000៛'
-                            :value="old('price')" autocomplete="price" />
+                        <x-text-input wire:model='price' id="price" class="block w-full mt-1" type="number"
+                            name="price" placeholder='Example : 45000៛' :value="old('price')" autocomplete="price" />
                         <x-input-error :messages="$errors->get('price')" class="mt-2" />
                     </div>
                     <div class="">
                         <x-input-label for="publicationDate" :value="__('messages.publicationDate')" />
-                        <x-text-input wire:model='publication_date' id="publicationDate" class="block w-full mt-1" type="date"
-                            name="publicationDate" :value="old('publicationDate')" autocomplete="publicationDate" />
+                        <x-text-input wire:model='publication_date' id="publicationDate" class="block w-full mt-1"
+                            type="date" name="publicationDate" :value="old('publicationDate')"
+                            autocomplete="publicationDate" />
                         <x-input-error :messages="$errors->get('publication_date')" class="mt-2" />
                     </div>
                     <div class="">
                         <x-input-label for="language" :value="__('messages.language')" />
-                        <x-select-option wire:model='language' class="block w-full mt-1" id="language" name='langauge'>
+                        <x-select-option wire:model='language' class="block w-full mt-1" id="language"
+                            name='langauge'>
                             <option value="khmer">{{ __('messages.khmer') }}</option>
                             <option value="english">{{ __('messages.english') }}</option>
                         </x-select-option>
@@ -123,15 +126,63 @@
                     </div>
                     <div class="">
                         <x-input-label for="edition" :value="__('messages.edition')" />
-                        <x-text-input wire:model='edition' id="edition" class="block w-full mt-1" type="text" name="edition"
-                            :value="old('edition')" autocomplete="edition" />
+                        <x-text-input wire:model='edition' id="edition" class="block w-full mt-1" type="text"
+                            name="edition" :value="old('edition')" autocomplete="edition" />
                         <x-input-error :messages="$errors->get('edition')" class="mt-2" />
                     </div>
                     <div class="md:col-span-2">
                         <x-input-label for="description" :value="__('messages.briefDescription')" />
-                        <textarea wire:model='description' class="w-full p-2 mt-1 border rounded bg-gray-50" placeholder="Enter brief description">{{ $description }}</textarea>
+                        <textarea wire:model='description' class="w-full p-2 mt-1 border rounded bg-gray-50"
+                            placeholder="Enter brief description">{{ $description }}</textarea>
                         <x-input-error :messages="$errors->get('description')" class="mt-2" />
                     </div>
+
+                    {{-- Start Category Select --}}
+                    <div class="relative w-full mb-5 group">
+                        <x-input-label for="category_id" :value="__('Category')" />
+                        <div class="flex flex-1 gap-1 mt-1">
+                            <div class="flex justify-start flex-1">
+                                <x-select-option wire:model.live='category_id' id="category_id" name="category_id"
+                                    class="category-select">
+                                    <option wire:key='category' value="">Select Category...</option>
+                                    @forelse ($categories as $category)
+                                        <option wire:key='{{ $category->id }}' value="{{ $category->id }}">
+                                            {{ $category->name }} {{ ' / ' . $category->name_kh }}
+                                        </option>
+                                    @empty
+                                        <option wire:key='nocateogry' value=""> --No Category--</option>
+                                    @endforelse
+                                </x-select-option>
+                            </div>
+                        </div>
+                        <x-input-error :messages="$errors->get('category_id')" class="mt-2" />
+                    </div>
+                    {{-- End Category Select --}}
+
+                    {{-- Start Sub-Category Select --}}
+                    <div class="relative w-full mb-5 group">
+                        <x-input-label for="sub_category_id" :value="__('Sub-Category')" />
+                        <div class="flex flex-1 gap-1 mt-1">
+                            <div class="flex justify-start flex-1">
+                                <x-select-option wire:model.live='sub_category_id' id="sub_category_id"
+                                    name="category_id" class="sub-category-select">
+                                    <option wire:key='sub-category' value="">
+                                        {{ $category_id ? 'Select Sub-Category...' : 'Select Category First' }}
+                                    </option>
+                                    @forelse ($subCategories as $subCategory)
+                                        <option wire:key='{{ $subCategory->id }}' value="{{ $subCategory->id }}">
+                                            {{ $subCategory->name }} {{ ' / ' . $subCategory->name_kh }}
+                                        </option>
+                                    @empty
+                                        <option wire:key='nosub-category' value="">--No Category--</option>
+                                    @endforelse
+                                </x-select-option>
+                            </div>
+
+                        </div>
+                        <x-input-error :messages="$errors->get('sub_category_id')" class="mt-2" />
+                    </div>
+                    {{-- End Sub-Category Select --}}
 
                     {{-- Start Image Upload --}}
                     <div class="flex items-center mb-5 md:col-span-2 space-4" wire:key='uploadimage'>
@@ -181,8 +232,8 @@
                 </div>
                 <div class="mb-8">
                     <x-input-label wire:model='isbnLastReceived' for="isbnLastReceived" :value="__('messages.isbnLastReceived')" />
-                    <x-text-input wire:model='isbn_last_received' id="isbnLastReceived" class="block w-full mt-1" type="text" name="isbnLastReceived"
-                        :value="old('isbnLastReceived')" autocomplete="isbnLastReceived" />
+                    <x-text-input wire:model='isbn_last_received' id="isbnLastReceived" class="block w-full mt-1"
+                        type="text" name="isbnLastReceived" :value="old('isbnLastReceived')" autocomplete="isbnLastReceived" />
                     <x-input-error :messages="$errors->get('isbn_last_received')" class="mt-2" />
                 </div>
             </section>
@@ -242,18 +293,37 @@
 
 @script
     <script>
-
-
         $(document).ready(function() {
             document.addEventListener('livewire:updated', event => {
                 console.log('updated'); // Logs 'Livewire component updated' to browser console
                 initFlowbite();
-                window.scrollTo({
-                    top: 0,
-                    behavior: 'smooth'
+            });
+        });
+
+        function initSelect2() {
+            $(document).ready(function() {
+                $('.category-select').select2();
+                $('.category-select').on('change', function(event) {
+                    let data = $(this).val();
+                    @this.set('category_id', data);
                 });
+
+                $('.sub-category-select').select2();
+                $('.sub-category-select').on('change', function(event) {
+                    let data = $(this).val();
+                    @this.set('sub_category_id', data);
+
+                });
+            });
+        }
+        initSelect2();
+
+        $(document).ready(function() {
+            document.addEventListener('livewire:updated', event => {
+                console.log('updated'); // Logs 'Livewire component updated' to browser console
+                initSelect2();
+                initFlowbite();
             });
         });
     </script>
-
 @endscript

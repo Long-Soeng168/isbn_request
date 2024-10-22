@@ -5,6 +5,8 @@ namespace App\Livewire;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use App\Models\IsbnRequest;
+use App\Models\BookCategory;
+use App\Models\BookSubCategory;
 
 use Image;
 
@@ -24,6 +26,21 @@ class IsbnCreate extends Component
     public $description = null;
     public $isbn_last_received = null;
     public $language = 'khmer';
+
+    public $category_id = null;
+    public $sub_category_id = null;
+
+    public function updatedCategory_id()
+    {
+        $this->sub_category_id = null;
+    }
+
+    public function updated()
+    {
+        $this->dispatch('livewire:updated');
+    }
+
+
 
     public function mount() {
         $user = request()->user();
@@ -57,10 +74,18 @@ class IsbnCreate extends Component
             'language' => 'required|string|max:255',
             'isbn_last_received' => 'nullable|string|max:255',
             'image' => 'required|image|max:2048',
+            'category_id' => 'nullable',
+            'sub_category_id' => 'nullable',
         ]);
 
         // dd($validated);
         $validated['publisher_id'] = request()->user()->id;
+
+        foreach ($validated as $key => $value) {
+            if (is_null($value) || $value === '') {
+                $validated[$key] == null;
+            }
+        }
 
         if(!empty($this->image)){
             // $filename = time() . '_' . $this->image->getClientOriginalName();
@@ -87,7 +112,9 @@ class IsbnCreate extends Component
     {
         // dd($allKeywords);
         // dump($this->selectedallKeywords);
+        $categories = BookCategory::orderBy('name')->get();
+        $subCategories = BookSubCategory::where('category_id', $this->category_id)->orderBy('name')->get();
 
-        return view('livewire.isbn-create');
+        return view('livewire.isbn-create', compact('categories', 'subCategories'));
     }
 }

@@ -106,6 +106,5 @@ return [
     'register' => 'Register',
     'userRequest' => 'User Request',
     'requestBy' => 'Request By',
-
-
+    'subCategory' => 'Sub Category',
 ];
