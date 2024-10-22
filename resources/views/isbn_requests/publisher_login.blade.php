@@ -237,6 +237,13 @@
         </div>
     </main>
 
+    <div class="absolute bottom-0 right-0 flex justify-end">
+        <p class="px-2 pb-1 text-xl font-semibold text-white hover:underline">
+            <a href="https://alphalib.org/">
+                By : Alphalib
+            </a>
+        </p>
+    </div>
 
     </div>
 @endsection

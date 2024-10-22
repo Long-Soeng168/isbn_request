@@ -312,6 +312,13 @@
                     <span class="screen__background__shape screen__background__shape1"></span>
                 </div> --}}
             </div>
+            <div class="flex justify-end">
+                <p class="py-4 text-xl font-semibold text-white hover:underline">
+                    <a href="https://alphalib.org/">
+                        By : Alphalib
+                    </a>
+                </p>
+            </div>
         </div>
     </main>
 

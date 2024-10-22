@@ -666,7 +666,11 @@
                 </div>
             </section>
             <div class="flex justify-end">
-                <p class="text-xl font-semibold text-purple-950">By : Alphalib</p>
+                <p class="text-xl font-semibold hover:underline text-purple-950">
+                    <a href="https://alphalib.org/">
+                        By : Alphalib
+                    </a>
+                </p>
             </div>
         </main>
     </div>
