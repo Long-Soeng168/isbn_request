@@ -186,16 +186,15 @@
     </style>
 
     <main class="flex mb-20 overflow-x-hidden">
-         <div class="flex-1 max-w-lg px-4 pt-20 mx-auto">
+        <div class="flex-1 max-w-lg px-4 pt-20 mx-auto">
             <div class="pb-10 screen">
                 <div class="">
                     <form id="register-form" class="login" method="POST" action="{{ url('/publisher_register') }}">
                         @csrf
                         <div class="login__field">
                             <i class="login__icon fas fa-user"></i>
-                            <input type="text" class="login__input" placeholder="Email"
-                                name="email" value="{{ old('email') }}"
-                            >
+                            <input type="text" class="login__input" placeholder="Email" name="email"
+                                value="{{ old('email') }}">
                             <x-input-error :messages="$errors->get('email')" class="mt-2" />
                         </div>
                         <div class="login__field">
@@ -205,36 +204,33 @@
                         </div>
                         <div class="login__field">
                             <i class="login__icon fas fa-lock"></i>
-                            <input type="password" name="password_confirmation" class="login__input" placeholder="Confirm Password">
+                            <input type="password" name="password_confirmation" class="login__input"
+                                placeholder="Confirm Password">
                             <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
                         </div>
 
                         <div class="login__field">
                             <i class="login__icon fas fa-user"></i>
-                            <input type="text" class="login__input" placeholder="Name"
-                                name="name" value="{{ old('name') }}"
-                            >
+                            <input type="text" class="login__input" placeholder="Name" name="name"
+                                value="{{ old('name') }}">
                             <x-input-error :messages="$errors->get('name')" class="mt-2" />
                         </div>
                         <div class="login__field">
                             <i class="login__icon fas fa-user"></i>
-                            <input type="text" class="login__input" placeholder="Address"
-                                name="address" value="{{ old('address') }}"
-                            >
+                            <input type="text" class="login__input" placeholder="Address" name="address"
+                                value="{{ old('address') }}">
                             <x-input-error :messages="$errors->get('address')" class="mt-2" />
                         </div>
                         <div class="login__field">
                             <i class="login__icon fas fa-user"></i>
-                            <input type="text" class="login__input" placeholder="Phone"
-                                name="phone" value="{{ old('phone') }}"
-                            >
+                            <input type="text" class="login__input" placeholder="Phone" name="phone"
+                                value="{{ old('phone') }}">
                             <x-input-error :messages="$errors->get('phone')" class="mt-2" />
                         </div>
                         <div class="login__field">
                             <i class="login__icon fas fa-user"></i>
-                            <input type="text" class="login__input" placeholder="Facebook's Name"
-                                name="facebookName" value="{{ old('facebookName') }}"
-                            >
+                            <input type="text" class="login__input" placeholder="Facebook's Name" name="facebookName"
+                                value="{{ old('facebookName') }}">
                             <x-input-error :messages="$errors->get('facebookName')" class="mt-2" />
                         </div>
                         <div class="">
@@ -261,7 +257,8 @@
                             <p class="mt-2 text-sm">Estimate the quantity of publications you produce each year:</p>
                             <div class="flex flex-wrap items-start gap-4 mt-4">
                                 <label class="flex items-center space-x-2 whitespace-nowrap">
-                                    <input type="radio" name="publicationsEachYear" value="less_than_1" class="border rounded"
+                                    <input type="radio" name="publicationsEachYear" value="less_than_1"
+                                        class="border rounded"
                                         {{ old('publicationsEachYear') == 'less_than_1' ? 'checked' : '' }}>
                                     <span>Less than 1</span>
                                 </label>
@@ -276,7 +273,8 @@
                                     <span>3 - 10</span>
                                 </label>
                                 <label class="flex items-center space-x-2 whitespace-nowrap">
-                                    <input type="radio" name="publicationsEachYear" value="more_than_10" class="border rounded"
+                                    <input type="radio" name="publicationsEachYear" value="more_than_10"
+                                        class="border rounded"
                                         {{ old('publicationsEachYear') == 'more_than_10' ? 'checked' : '' }}>
                                     <span>More than 10</span>
                                 </label>
@@ -284,7 +282,9 @@
                             <x-input-error :messages="$errors->get('publicationsEachYear')" class="mt-2" />
                         </section>
 
-                        <button class="button login__submit">
+                        <button class="button login__submit" class="g-recaptcha"
+                            data-sitekey="6Le9fWcqAAAAAMHTv_-wYgdIBJdAh6gGniNbHCE8" data-callback='onSubmit'
+                            data-action='submit'>
                             <span class="button__text">Sign Up Now</span>
                             <i class="button__icon fas fa-chevron-right"></i>
                         </button>
