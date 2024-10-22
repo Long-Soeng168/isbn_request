@@ -71,7 +71,7 @@
         @yield('content')
     </div>
     <div class="absolute bottom-0 right-0 flex justify-end">
-        <p class="px-6 pb-1 text-xl font-semibold text-white">By : Alphalib</p>
+        <p class="px-2 pb-1 text-xl font-semibold text-white">By : Alphalib</p>
     </div>
 </body>
 
