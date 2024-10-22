@@ -189,7 +189,7 @@
          <div class="flex-1 max-w-lg px-4 pt-20 mx-auto">
             <div class="pb-10 screen">
                 <div class="">
-                    <form class="login" method="POST" action="{{ url('/publisher_register') }}">
+                    <form id="register-form" class="login" method="POST" action="{{ url('/publisher_register') }}">
                         @csrf
                         <div class="login__field">
                             <i class="login__icon fas fa-user"></i>
