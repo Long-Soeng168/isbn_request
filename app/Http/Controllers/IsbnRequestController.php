@@ -93,6 +93,7 @@ class IsbnRequestController extends Controller
             'publications_each_year' => $request->publicationsEachYear,
             'password' => Hash::make($request->password),
             'status' => 0,
+            'is_publisher_acc' => 1,
         ]);
 
         $user->assignRole($request->user_type);
