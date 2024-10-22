@@ -70,6 +70,9 @@
     <div class="">
         @yield('content')
     </div>
+    <div class="flex justify-end">
+        <p class="p-6 text-xl font-semibold text-white">By : Alphalib</p>
+    </div>
 </body>
 
 </html>

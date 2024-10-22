@@ -236,6 +236,16 @@ Route::group([
     Route::get('admin/sub_categories', [BookController::class, 'sub_categories']);
 });
 
+Route::group([
+    'middleware' => 'setLang',
+    'middleware' => 'auth',
+], function () {
+    Route::get('/', function () {
+        return redirect('admin/dashboard');
+    });
+
+});
+
 
 use App\Http\Controllers\VerificationController;
 
@@ -253,9 +263,6 @@ Route::group([
 
     // Route::get('/', [HomeController::class, 'index']);
 
-    Route::get('/', function () {
-        return view('welcome');
-    });
 
     Route::get('/one_search', [HomeController::class, 'oneSearch']);
     Route::get('/client_login/{path}', [HomeController::class, 'clientLogin'])->name('client.login');

@@ -665,6 +665,9 @@
                     </div>
                 </div>
             </section>
+            <div class="flex justify-end">
+                <p class="text-xl font-semibold text-purple-950">By : Alphalib</p>
+            </div>
         </main>
     </div>
 
