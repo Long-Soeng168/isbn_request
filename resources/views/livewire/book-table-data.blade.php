@@ -131,6 +131,7 @@
                             Title
                         </div>
                     </th>
+                    <th scope="col" class="px-4 py-3">Publisher</th>
                     <th scope="col" class="px-4 py-3">ISBN</th>
                     <th scope="col" class="px-4 py-3 text-center">Status</th>
                     <th scope="col" class="px-4 py-3">Created_at</th>
@@ -152,7 +153,8 @@
                             </a>
                         </th>
                         <x-table-data value="{{ $item->title }}" />
-                        <x-table-data value="{{ $item->status == 1 ? $item->isbn : 'N/A' }}" />
+                        <x-table-data value="{{ $item->isbn}}" />
+                        <x-table-data value="{{ $item->publisher?->name}}" />
                         <td class="text-center">
                             @if ($item->status == 1)
                                 <span class="w-4 px-4 py-3 font-semibold text-green-700">

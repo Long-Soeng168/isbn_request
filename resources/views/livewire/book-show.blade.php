@@ -96,6 +96,24 @@
                     <div class="flex nowrap">
                         <p
                             class="w-[168px] uppercase tracking-wide text-sm text-gray-500 dark:text-gray-300 font-semibold border-r border-gray-600 dark:border-gray-300 pr-5 mr-5 flex-shrink-0">
+                            {{ __('messages.category') }}
+                        </p>
+                        <p class="text-sm text-gray-600 dark:text-gray-200">
+                            {{ $item->category?->name }}
+                        </p>
+                    </div>
+                    <div class="flex nowrap">
+                        <p
+                            class="w-[168px] uppercase tracking-wide text-sm text-gray-500 dark:text-gray-300 font-semibold border-r border-gray-600 dark:border-gray-300 pr-5 mr-5 flex-shrink-0">
+                            {{ __('messages.subCategory') }}
+                        </p>
+                        <p class="text-sm text-gray-600 dark:text-gray-200">
+                            {{ $item->subCategory?->name }}
+                        </p>
+                    </div>
+                    <div class="flex nowrap">
+                        <p
+                            class="w-[168px] uppercase tracking-wide text-sm text-gray-500 dark:text-gray-300 font-semibold border-r border-gray-600 dark:border-gray-300 pr-5 mr-5 flex-shrink-0">
                             {{ __('messages.publisher') }}
                         </p>
                         <p class="text-sm text-gray-600 dark:text-gray-200">
@@ -154,55 +172,6 @@
                 </div>
             </div>
 
-            @if (request()->user()->hasRole(['admin', 'super-admin']))
-                <div class="col-span-12">
-                    <div class="flex flex-col max-w-full gap-4 p-4 mx-auto mb-4 border shadow">
-                        <div class="">
-                            <x-input-label for="isbnAllocated" :value="__('messages.isbnAllocated')" />
-                            <x-select-option wire:model.live='isbnAllocated' class="block w-full mt-1"
-                                id="isbnAllocated">
-                                <option value="">{{ __('messages.select') }}</option>
-                                <option value="978-99963-">
-                                    978-99963-
-                                </option>
-                                <option value="978-9924-">
-                                    978-9924-
-                                </option>
-                                <option value="978-9950-">
-                                    978-9950-
-                                </option>
-                            </x-select-option>
-                            <x-input-error :messages="$errors->get('isbnAllocated')" class="mt-2" />
-                        </div>
-                        <div class="">
-                            <x-input-label for="giveIsbn" :value="__('messages.giveIsbn')" />
-                            <x-text-input wire:key='{{ rand() }}' wire:model='giveIsbn' id="giveIsbn"
-                                class="block w-full mt-1" type="text" name="giveIsbn" autocomplete="giveIsbn" />
-                            <x-input-error :messages="$errors->get('giveIsbn')" class="mt-2" />
-                        </div>
-                        <div class="flex">
-                            <!-- Modal toggle -->
-                            <button data-modal-target="reject-modal" data-modal-toggle="reject-modal"
-                                class="text-white bg-red-500 hover:bg-red-600 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 focus:outline-none dark:focus:ring-red-800"
-                                type="button">
-                                Reject
-                            </button>
-
-                            <button type="button" wire:click.prevent="approve" wire:target="approve"
-                                wire:loading.attr="disabled"
-                                class="text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 focus:outline-none dark:focus:ring-green-800">
-                                Approve
-                            </button>
-                            <span wire:target="approve" wire:loading>
-                                <img class="inline w-6 h-6 text-white me-2 animate-spin"
-                                    src="{{ asset('assets/images/reload.png') }}" alt="reload-icon">
-                                Saving
-                            </span>
-                        </div>
-                    </div>
-                </div>
-            @else
-            @endif
 
 
         </div>

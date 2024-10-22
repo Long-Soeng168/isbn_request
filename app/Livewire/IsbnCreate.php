@@ -94,7 +94,7 @@ class IsbnCreate extends Component
             $image_path = public_path('assets/images/isbn/'.$filename);
             $image_thumb_path = public_path('assets/images/isbn/thumb/'.$filename);
             $imageUpload = Image::make($this->image->getRealPath())->save($image_path);
-            $imageUpload->resize(1280,null,function($resize){
+            $imageUpload->resize(600,null,function($resize){
                 $resize->aspectRatio();
             })->save($image_thumb_path);
             $validated['image'] = $filename;
