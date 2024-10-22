@@ -132,7 +132,7 @@
                         </div>
                     </th>
                     <th scope="col" class="px-4 py-3">Publisher</th>
-                    <th scope="col" class="px-4 py-3">ISBN</th>
+                    <th scope="col" class="px-4 py-3 text-center">ISBN</th>
                     <th scope="col" class="px-4 py-3 text-center">Status</th>
                     <th scope="col" class="px-4 py-3">Created_at</th>
                     <th scope="col" class="py-3 text-center">Action</th>
@@ -154,7 +154,7 @@
                         </th>
                         <x-table-data value="{{ $item->title }}" />
                         <x-table-data value="{{ $item->isbn}}" />
-                        <x-table-data value="{{ $item->publisher?->name}}" />
+                        <x-table-data class="text-center" value="{{ $item->publisher?->name}}" />
                         <td class="text-center">
                             @if ($item->status == 1)
                                 <span class="w-4 px-4 py-3 font-semibold text-green-700">
