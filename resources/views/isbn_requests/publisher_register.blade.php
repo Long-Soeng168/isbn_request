@@ -193,43 +193,43 @@
                         @csrf
                         <div class="login__field">
                             <i class="login__icon fas fa-user"></i>
-                            <input type="text" class="login__input" placeholder="Email" name="email"
+                            <input type="text" class="login__input" placeholder="{{ __('messages.email') }}" name="email"
                                 value="{{ old('email') }}">
                             <x-input-error :messages="$errors->get('email')" class="mt-2" />
                         </div>
                         <div class="login__field">
                             <i class="login__icon fas fa-lock"></i>
-                            <input type="password" name="password" class="login__input" placeholder="Password">
+                            <input type="password" name="password" class="login__input" placeholder="{{ __('messages.password') }}">
                             <x-input-error :messages="$errors->get('password')" class="mt-2" />
                         </div>
                         <div class="login__field">
                             <i class="login__icon fas fa-lock"></i>
                             <input type="password" name="password_confirmation" class="login__input"
-                                placeholder="Confirm Password">
+                                placeholder="{{ __('messages.confirmPassword') }}">
                             <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
                         </div>
 
                         <div class="login__field">
                             <i class="login__icon fas fa-user"></i>
-                            <input type="text" class="login__input" placeholder="Name" name="name"
+                            <input type="text" class="login__input" placeholder="{{ __('messages.name') }}" name="name"
                                 value="{{ old('name') }}">
                             <x-input-error :messages="$errors->get('name')" class="mt-2" />
                         </div>
                         <div class="login__field">
                             <i class="login__icon fas fa-user"></i>
-                            <input type="text" class="login__input" placeholder="Address" name="address"
+                            <input type="text" class="login__input" placeholder="{{ __('messages.address') }}" name="address"
                                 value="{{ old('address') }}">
                             <x-input-error :messages="$errors->get('address')" class="mt-2" />
                         </div>
                         <div class="login__field">
                             <i class="login__icon fas fa-user"></i>
-                            <input type="text" class="login__input" placeholder="Phone" name="phone"
+                            <input type="text" class="login__input" placeholder="{{ __('messages.phone') }}" name="phone"
                                 value="{{ old('phone') }}">
                             <x-input-error :messages="$errors->get('phone')" class="mt-2" />
                         </div>
                         <div class="login__field">
                             <i class="login__icon fas fa-user"></i>
-                            <input type="text" class="login__input" placeholder="Facebook's Name" name="facebookName"
+                            <input type="text" class="login__input" placeholder="{{ __('messages.facebookName') }}" name="facebookName"
                                 value="{{ old('facebookName') }}">
                             <x-input-error :messages="$errors->get('facebookName')" class="mt-2" />
                         </div>
@@ -260,7 +260,7 @@
                                     <input type="radio" name="publicationsEachYear" value="less_than_1"
                                         class="border rounded"
                                         {{ old('publicationsEachYear') == 'less_than_1' ? 'checked' : '' }}>
-                                    <span>Less than 1</span>
+                                    <span> {{ __('messages.lessThan1') }}</span>
                                 </label>
                                 <label class="flex items-center space-x-2 whitespace-nowrap">
                                     <input type="radio" name="publicationsEachYear" value="1_to_2" class="border rounded"
@@ -276,7 +276,7 @@
                                     <input type="radio" name="publicationsEachYear" value="more_than_10"
                                         class="border rounded"
                                         {{ old('publicationsEachYear') == 'more_than_10' ? 'checked' : '' }}>
-                                    <span>More than 10</span>
+                                    <span> {{ __('messages.moreThan10') }}</span>
                                 </label>
                             </div>
                             <x-input-error :messages="$errors->get('publicationsEachYear')" class="mt-2" />
@@ -285,15 +285,15 @@
                         <button class="button login__submit" class="g-recaptcha"
                             data-sitekey="6Le9fWcqAAAAAMHTv_-wYgdIBJdAh6gGniNbHCE8" data-callback='onSubmit'
                             data-action='submit'>
-                            <span class="button__text">Sign Up Now</span>
+                            <span class="button__text"> {{ __('messages.signUpNow') }}</span>
                             <i class="button__icon fas fa-chevron-right"></i>
                         </button>
                     </form>
                     <h3 class="flex justify-end px-8 mt-10">
                         <a class="flex gap-2 text-sm text-purple-900 rounded-md focus:outline-none whitespace-nowrap"
                             href="{{ url('publisher_login') }}">
-                            <span>{{ __('Already Has Account? ') }} </span>
-                            <strong class="underline hover:underline-offset-4">Sign In</strong>
+                            <span>{{ __('messages.alreadyHasAccount') }} </span>
+                            <strong class="underline hover:underline-offset-4"> {{ __('messages.login') }}</strong>
                         </a>
                     </h3>
                     {{-- <div class="social-login">
@@ -312,8 +312,8 @@
                     <span class="screen__background__shape screen__background__shape1"></span>
                 </div> --}}
             </div>
-            <div class="flex justify-end">
-                <p class="py-4 text-xl font-semibold text-white hover:underline">
+            <div class="flex justify-center">
+                <p class="py-4 text-xl text-white hover:underline">
                     <a href="https://alphalib.org/">
                         By : Alphalib
                     </a>

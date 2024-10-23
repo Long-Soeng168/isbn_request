@@ -18,6 +18,7 @@
     <!-- end Start CSS -->
 
     <!-- Start JS -->
+    <script src="{{ asset('assets/js/flowbite2.3.js') }}"></script>
     <script src="{{ asset('assets/js/tailwind34.js') }}"></script>
     <script src="{{ asset('assets/js/darkModeHead.js') }}"></script>
 
@@ -69,6 +70,50 @@
     {{-- End Language --}}
     <div class="">
         @yield('content')
+    </div>
+    <div class="fixed bottom-0 left-0 ">
+        <button type="button" data-dropdown-toggle="language-dropdown"
+            class="inline-flex justify-center p-2 m-1 text-white rounded cursor-pointer dark:hover:text-white dark:text-gray-400 hover:text-purple-950 hover:bg-gray-200 bg-purple-950 dark:hover:bg-gray-600">
+            <span class="mr-2 ">
+                {{ app()->getLocale() == 'kh' ? 'ខ្មែរ' : 'English' }}
+            </span>
+            @if (app()->getLocale() == 'kh')
+                <img src="{{ asset('assets/icons/khmer.png') }}" alt="icon"
+                    class="object-contain w-6 h-6 border rounded-full">
+            @else
+                <img src="{{ asset('assets/icons/english.png') }}" alt="icon"
+                    class="object-contain w-6 h-6 border rounded-full">
+            @endif
+
+        </button>
+        <!-- Dropdown -->
+        <div class="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded shadow w-36 dark:bg-gray-700"
+            id="language-dropdown">
+            <ul class="py-1" role="none">
+                <li>
+                    <a href="{{ url('switch-language/kh') }}"
+                        class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:text-white dark:text-gray-300 dark:hover:bg-gray-600"
+                        role="menuitem">
+                        <div class="inline-flex items-center">
+                            <img src="{{ asset('assets/icons/khmer.png') }}" alt="icon"
+                                class="object-contain w-6 h-6 mr-2 border rounded-full">
+                            ខ្មែរ
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ url('switch-language/en') }}"
+                        class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:text-white dark:text-gray-300 dark:hover:bg-gray-600"
+                        role="menuitem">
+                        <div class="inline-flex items-center">
+                            <img src="{{ asset('assets/icons/english.png') }}" alt="icon"
+                                class="object-contain w-6 h-6 mr-2 border rounded-full">
+                            English
+                        </div>
+                    </a>
+                </li>
+            </ul>
+        </div>
     </div>
 
 </body>

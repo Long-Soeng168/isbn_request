@@ -370,14 +370,14 @@
             <div class="h-full px-3 py-5 overflow-y-auto bg-white dark:bg-gray-800 pb-[8rem]">
 
                 <ul>
-                    <li>
+                    {{-- <li>
                         <x-sidebar-item href="{{ route('admin.dashboard.index') }}"
                             class="{{ request()->is('admin/dashboard*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">
                             <img src="{{ asset('assets/icons/dashboard.png') }}" alt="icon"
                                 class="object-contain w-8 h-8 p-0.5 bg-white dark:bg-gray-200 rounded">
                             <span class="ml-3">Dashboard</span>
                         </x-sidebar-item>
-                    </li>
+                    </li> --}}
                     <li class="mt-2">
                         <x-sidebar-item href="{{ url('isbn_requests') }}"
                             class="{{ request()->is('isbn_requests*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">
