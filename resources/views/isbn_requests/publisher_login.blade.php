@@ -370,7 +370,7 @@
         </div>
         <div class="flex flex-col items-center flex-1 gap-4 shrink-0 container_login_form">
             <div class="screen">
-                <div class=" screen__content">
+                <div class="relative screen__content">
                     <form class="login" method="POST" action="{{ url('/publisher_login') }}">
                         @csrf
                         <div class="login__field">
@@ -389,7 +389,7 @@
                             <i class="button__icon fas fa-chevron-right"></i>
                         </button>
                     </form>
-                    <h3 class="flex justify-end px-8 mt-20">
+                    <h3 class="absolute bottom-8 right-8">
                         <a class="flex gap-2 text-sm min-[1333px]:text-lg text-white rounded-md focus:outline-none whitespace-nowrap"
                             href="{{ url('publisher_register') }}">
                             <span>{{ __('messages.dontHasAccount') }} </span>

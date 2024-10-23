@@ -188,6 +188,7 @@
     <main class="flex mb-20 overflow-x-hidden">
         <div class="flex-1 max-w-lg px-4 pt-20 mx-auto">
             <div class="pb-10 screen">
+                <p class="pt-4 text-3xl font-bold text-center text-slate-600">{{ __('messages.register') }}</p>
                 <div class="">
                     <form id="register-form" class="login" method="POST" action="{{ url('/publisher_register') }}">
                         @csrf
