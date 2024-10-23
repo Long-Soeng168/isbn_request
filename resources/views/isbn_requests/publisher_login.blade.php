@@ -184,8 +184,15 @@
             transform: scale(1.5);
         }
 
-        body::-webkit-scrollbar {
+
+        .screen__background::-webkit-scrollbar {
         display: none;
+        }
+
+        /* Hide scrollbar for IE, Edge and Firefox */
+        .screen__background {
+        -ms-overflow-style: none;  /* IE and Edge */
+        scrollbar-width: none;  /* Firefox */
         }
 
         @media screen and (min-width: 1333px) {
