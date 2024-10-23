@@ -31,6 +31,14 @@
             width: 100%;
             box-shadow: 0px 0px 24px #5C5696;
         }
+        .screen::-webkit-scrollbar {
+            display: none;
+        }
+
+        .screen__content::-webkit-scrollbar {
+            display: none;
+        }
+
 
         .screen__content {
             z-index: 1;
