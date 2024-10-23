@@ -16,6 +16,17 @@
             background: linear-gradient(90deg, #C7C5F4, #776BCC);
         }
 
+        ::-webkit-scrollbar {
+            display: none;
+            overflow-y: scroll;
+            /* Add the ability to scroll */
+            -ms-overflow-style: none;
+            /* IE and Edge */
+            scrollbar-width: none;
+            /* Firefox */
+        }
+
+
         .container_login_form {
             display: flex;
             align-items: center;
@@ -31,6 +42,7 @@
             width: 100%;
             box-shadow: 0px 0px 24px #5C5696;
         }
+
         .screen::-webkit-scrollbar {
             display: none;
         }
@@ -202,13 +214,14 @@
                         @csrf
                         <div class="login__field">
                             <i class="login__icon fas fa-user"></i>
-                            <input type="text" class="login__input" placeholder="{{ __('messages.email') }}" name="email"
-                                value="{{ old('email') }}">
+                            <input type="text" class="login__input" placeholder="{{ __('messages.email') }}"
+                                name="email" value="{{ old('email') }}">
                             <x-input-error :messages="$errors->get('email')" class="mt-2" />
                         </div>
                         <div class="login__field">
                             <i class="login__icon fas fa-lock"></i>
-                            <input type="password" name="password" class="login__input" placeholder="{{ __('messages.password') }}">
+                            <input type="password" name="password" class="login__input"
+                                placeholder="{{ __('messages.password') }}">
                             <x-input-error :messages="$errors->get('password')" class="mt-2" />
                         </div>
                         <div class="login__field">
@@ -220,26 +233,26 @@
 
                         <div class="login__field">
                             <i class="login__icon fas fa-user"></i>
-                            <input type="text" class="login__input" placeholder="{{ __('messages.name') }}" name="name"
-                                value="{{ old('name') }}">
+                            <input type="text" class="login__input" placeholder="{{ __('messages.name') }}"
+                                name="name" value="{{ old('name') }}">
                             <x-input-error :messages="$errors->get('name')" class="mt-2" />
                         </div>
                         <div class="login__field">
                             <i class="login__icon fas fa-user"></i>
-                            <input type="text" class="login__input" placeholder="{{ __('messages.address') }}" name="address"
-                                value="{{ old('address') }}">
+                            <input type="text" class="login__input" placeholder="{{ __('messages.address') }}"
+                                name="address" value="{{ old('address') }}">
                             <x-input-error :messages="$errors->get('address')" class="mt-2" />
                         </div>
                         <div class="login__field">
                             <i class="login__icon fas fa-user"></i>
-                            <input type="text" class="login__input" placeholder="{{ __('messages.phone') }}" name="phone"
-                                value="{{ old('phone') }}">
+                            <input type="text" class="login__input" placeholder="{{ __('messages.phone') }}"
+                                name="phone" value="{{ old('phone') }}">
                             <x-input-error :messages="$errors->get('phone')" class="mt-2" />
                         </div>
                         <div class="login__field">
                             <i class="login__icon fas fa-user"></i>
-                            <input type="text" class="login__input" placeholder="{{ __('messages.facebookName') }}" name="facebookName"
-                                value="{{ old('facebookName') }}">
+                            <input type="text" class="login__input" placeholder="{{ __('messages.facebookName') }}"
+                                name="facebookName" value="{{ old('facebookName') }}">
                             <x-input-error :messages="$errors->get('facebookName')" class="mt-2" />
                         </div>
                         <div class="">
