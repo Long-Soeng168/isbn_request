@@ -25,6 +25,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        $websiteInfo = WebsiteInfo::first() ?? new WebsiteInfo;
+        View::share('websiteInfo', $websiteInfo);
 
         $footer = Footer::first() ?? new Footer;
         View::share('footer', $footer);
