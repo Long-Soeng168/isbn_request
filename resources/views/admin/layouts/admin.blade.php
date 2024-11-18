@@ -151,7 +151,7 @@
                         </svg>
                         <span class="sr-only">Toggle sidebar</span>
                     </button>
-                    <a href="/" class="flex items-center justify-center mr-4">
+                    <a href="{{ url('isbn_requests') }}" class="flex items-center justify-center mr-4">
                         @if ($websiteInfo->image)
                             <img src="{{ asset('assets/images/website_infos/logo192.png') }}" class="h-8 mr-3"
                                 alt="Flowbite Logo" />
@@ -358,7 +358,7 @@
         <aside
             class="fixed top-0 left-0 z-40 w-64 h-screen transition-transform -translate-x-full bg-white border-r border-gray-200 md:translate-x-0 dark:bg-gray-800 dark:border-gray-700 "
             aria-label="Sidenav" id="drawer-navigation">
-            <a href="/" class="flex items-center justify-center p-3.5 border-b dark:border-b-slate-600">
+            <a href="{{ url('isbn_requests') }}" class="flex items-center justify-center p-3.5 border-b dark:border-b-slate-600">
                 @if ($websiteInfo->image)
                     <img src="{{ asset('assets/images/website_infos/logo192.png') }}"
                         class="object-cover h-8 mr-3 rounded-full aspect-square" alt="Flowbite Logo" />
@@ -394,6 +394,7 @@
                             <span class="ml-3">Catalog</span>
                         </x-sidebar-item>
                     </li>
+
                     @if (request()->user()->hasRole(['super-admin', 'admin']))
                         <li x-data="{
                             open: {{ request()->is('admin/categories*') || request()->is('admin/sub_categories*') ? 'true' : 'false' }},
@@ -428,6 +429,46 @@
                                     <a href="{{ url('admin/sub_categories') }}"
                                         class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->is('admin/sub_categories*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">
                                         Sub Categories
+                                    </a>
+                                </li>
+
+
+                            </ul>
+                        </li>
+
+                        <li x-data="{
+                            open: {{ request()->is('admin/bulletins*') || request()->is('admin/bulletins_categories*') ? 'true' : 'false' }},
+                            init() {
+                                if ({{ request()->is('admin/bulletins*') || request()->is('admin/bulletins_categories*') ? 'true' : 'false' }}) {
+                                    this.$nextTick(() => this.$refs.users.scrollIntoView({ behavior: 'smooth' }));
+                                }
+                            }
+                        }" x-ref="users" class="pt-1">
+                            <button type="button"
+                                class="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->is('admin/bulletins*') || request()->is('admin/bulletins_categories*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}"
+                                :class="{ 'bg-slate-100 dark:bg-slate-700': open }"
+                                @click="open = !open; if (open) $nextTick(() => $refs.users.scrollIntoView({ behavior: 'smooth' }))">
+                                <img src="{{ asset('assets/icons/menu.png') }}" alt="icon"
+                                    class="object-contain w-8 h-8 bg-white rounded dark:bg-gray-200">
+                                <span class="flex-1 text-left ms-3 rtl:text-right whitespace-nowrap">News</span>
+                                <svg class="w-3 h-3 transition-transform duration-200 transform"
+                                    :class="{ 'rotate-180': open }" aria-hidden="true"
+                                    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                        stroke-width="2" d="m1 1 4 4 4-4" />
+                                </svg>
+                            </button>
+                            <ul x-show="open" x-transition class="py-2 ml-2 space-y-2">
+                                <li>
+                                    <a href="{{ url('admin/bulletins') }}"
+                                        class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->is('admin/bulletins') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">
+                                        News
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{{ url('admin/bulletins_categories') }}"
+                                        class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->is('admin/bulletins_categories') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">
+                                        Categories
                                     </a>
                                 </li>
 
@@ -486,22 +527,6 @@
                     @endcan
 
 
-
-                    {{-- <li>
-                        <x-sidebar-item href="{{ route('admin.customers.index') }}"
-                            class="{{ request()->is('admin/customers*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-contact">
-                                <path d="M17 18a2 2 0 0 0-2-2H9a2 2 0 0 0-2 2" />
-                                <rect width="18" height="18" x="3" y="4" rx="2" />
-                                <circle cx="12" cy="10" r="2" />
-                                <line x1="8" x2="8" y1="2" y2="4" />
-                                <line x1="16" x2="16" y1="2" y2="4" />
-                            </svg>
-                            <span class="ml-3">Customers</span>
-                        </x-sidebar-item>
-                    </li> --}}
                 </ul>
 
                 @can('view setting')
@@ -553,14 +578,6 @@
                                         Footer
                                     </a>
                                 </li>
-                                @can('view database')
-                                    <li>
-                                        <a href="{{ url('admin/settings/databases') }}"
-                                            class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->is('admin/settings/databases*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">
-                                            Databases
-                                        </a>
-                                    </li>
-                                @endcan
 
                                 <li>
                                     <a href="{{ url('admin/settings/website_infos/1/edit') }}"

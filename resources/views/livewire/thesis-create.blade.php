@@ -64,7 +64,7 @@
             </div>
         </div>
     @endif
-    <form class="w-full" action="{{ route('admin.items.store') }}" method="POST" enctype="multipart/form-data">
+    <form class="w-full"  >
         @csrf
         <div class="grid gap-5 mb-5 lg:grid-cols-1">
             <!-- Start Name -->
