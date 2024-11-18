@@ -92,10 +92,6 @@
         </div>
         <div
             class="flex flex-col items-stretch justify-end flex-shrink-0 w-full space-y-2 md:w-auto md:flex-row md:space-y-0 md:items-center md:space-x-3">
-            <div class="flex flex-col items-end text-sm text-gray-500">
-                <span>Total Read : {{ $totalReadCount }}</span>
-                <span>Total Download : {{ $totalDownloadCount }}</span>
-            </div>
             @can('create bulletin')
                 <x-primary-button href="{{ route('admin.bulletins.create') }}">
                     <svg class="h-3.5 w-3.5 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"
@@ -144,26 +140,8 @@
                             Title
                         </div>
                     </th>
-                    {{-- <th scope="col" class="px-4 py-3 " wire:click='setSortBy("description")'>
-                        <div class="flex items-center cursor-pointer">
 
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
-                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                stroke-linejoin="round" class="lucide lucide-chevrons-up-down">
-                                <path d="m7 15 5 5 5-5" />
-                                <path d="m7 9 5-5 5 5" />
-                            </svg>
-                            Description
-                        </div>
-                    </th> --}}
-
-                    <th scope="col" class="px-4 py-3">Author</th>
                     <th scope="col" class="px-4 py-3">Category</th>
-                    <th scope="col" class="px-4 py-3">PDF</th>
-                    @can('update bulletin')
-                        <th scope="col" class="py-3 text-center">Read</th>
-                        <th scope="col" class="py-3 text-center">Download</th>
-                    @endcan
                     <th scope="col" class="py-3 text-center">Action</th>
                 </tr>
             </thead>
@@ -182,56 +160,7 @@
                             </a>
                         </th>
                         <x-table-data value="{{ $item->name }}" />
-                        {{-- <x-table-data value="{{ $item->description }}" /> --}}
-                        <x-table-data>
-                            <span
-                                class="bg-primary-100 text-primary-800 text-xs font-medium px-2 py-0.5 rounded dark:bg-primary-900 dark:text-primary-300 whitespace-nowrap">
-                                {{ $item->author?->name ? $item->author?->name : 'N/A' }}
-                            </span>
-                        </x-table-data>
                         <x-table-data value="{{ $item->newsCategory?->name ? $item->newsCategory?->name : 'N/A' }}" />
-                        <x-table-data>
-                            @if ($item->pdf)
-                                <span
-                                    class="bg-green-100 text-green-800 text-xs font-medium px-2 py-0.5 rounded dark:bg-green-900 dark:text-green-300 whitespace-nowrap">
-                                    Available
-                                </span>
-                            @else
-                                <span
-                                    class="bg-red-100 text-red-800 text-xs font-medium px-2 py-0.5 rounded dark:bg-red-900 dark:text-red-300 whitespace-nowrap">
-                                    Not-Available
-                                </span>
-                            @endif
-                        </x-table-data>
-                        @can('update bulletin')
-                            <x-table-data wire:click="updateRead({{ $item->id }})" class="cursor-pointer">
-                                @if ($item->can_read)
-                                    <span
-                                        class="bg-green-100 text-green-800 text-xs font-medium px-2 py-0.5 rounded dark:bg-green-900 dark:text-green-300 whitespace-nowrap">
-                                        Allow
-                                    </span>
-                                @else
-                                    <span
-                                        class="bg-red-100 text-red-800 text-xs font-medium px-2 py-0.5 rounded dark:bg-red-900 dark:text-red-300 whitespace-nowrap">
-                                        Not-Allow
-                                    </span>
-                                @endif
-                            </x-table-data>
-                            <x-table-data wire:click="updateDownload({{ $item->id }})" class="cursor-pointer">
-                                @if ($item->can_download)
-                                    <span
-                                        class="bg-green-100 text-green-800 text-xs font-medium px-2 py-0.5 rounded dark:bg-green-900 dark:text-green-300 whitespace-nowrap">
-                                        Allow
-                                    </span>
-                                @else
-                                    <span
-                                        class="bg-red-100 text-red-800 text-xs font-medium px-2 py-0.5 rounded dark:bg-red-900 dark:text-red-300 whitespace-nowrap">
-                                        Not-Allow
-                                    </span>
-                                @endif
-                            </x-table-data>
-                        @endcan
-
 
                         <td class="px-6 py-4">
                             <div class="flex items-start justify-center gap-3">

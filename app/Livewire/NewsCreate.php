@@ -344,25 +344,9 @@ class NewsCreate extends Component
     public function render()
     {
         $categories = NewsCategory::latest()->get();
-        $subCategories = NewsSubCategory::where('news_category_id', $this->news_category_id)->latest()->get();
-        $types = NewsType::latest()->get();
-        $publishers = Publisher::latest()->get();
-        $locations = Location::latest()->get();
-        $languages = Language::latest()->get();
-        $authors = Author::latest()->get();
-        $allKeywords = Keyword::latest()->get();
-// dd($allKeywords);
-        // dump($this->selectedallKeywords);
 
         return view('livewire.news-create', [
             'categories' => $categories,
-            'subCategories' => $subCategories,
-            'types' => $types,
-            'publishers' => $publishers,
-            'locations' => $locations,
-            'authors' => $authors,
-            'languages' => $languages,
-            'allKeywords' => $allKeywords,
         ]);
     }
 }

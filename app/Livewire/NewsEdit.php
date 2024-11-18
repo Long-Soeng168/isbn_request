@@ -23,7 +23,7 @@ class NewsEdit extends Component
 
     public $item;
     public $image;
-    public $pdf;
+    public $file;
 
     public $news_category_id = null;
     public $news_sub_category_id = null;
@@ -353,9 +353,9 @@ class NewsEdit extends Component
             $validated['image'] = $this->item->image;
         }
 
-        if (!empty($this->pdf)) {
-            $filename = time() . '_' . $this->pdf->getClientOriginalName();
-            $this->pdf->storeAs('news', $filename, 'publicForPdf');
+        if (!empty($this->file)) {
+            $filename = time() . '_' . $this->file->getClientOriginalName();
+            $this->file->storeAs('news', $filename, 'publicForPdf');
             $validated['pdf'] = $filename;
 
             $old_file = public_path('assets/pdf/news/' . $this->item->pdf);
@@ -374,25 +374,9 @@ class NewsEdit extends Component
     public function render()
     {
         $categories = NewsCategory::latest()->get();
-        $subCategories = NewsSubCategory::where('news_category_id', $this->news_category_id)->latest()->get();
-        $types = NewsType::latest()->get();
-        $publishers = Publisher::latest()->get();
-        $locations = Location::latest()->get();
-        $languages = Language::latest()->get();
-        $authors = Author::latest()->get();
-        $allKeywords = Keyword::latest()->get();
-// dd($allKeywords);
-        // dump($this->selectedallKeywords);
 
         return view('livewire.news-edit', [
             'categories' => $categories,
-            'subCategories' => $subCategories,
-            'types' => $types,
-            'publishers' => $publishers,
-            'locations' => $locations,
-            'authors' => $authors,
-            'languages' => $languages,
-            'allKeywords' => $allKeywords,
         ]);
     }
 }
