@@ -59,7 +59,7 @@ class IsbnRequestController extends Controller
         // Attempt to log in using the provided credentials
         if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
             // If successful, redirect to the desired route (e.g., dashboard or homepage)
-            return redirect('admin/dashboard')->with('success', 'Registration successful!');
+            return redirect('isbn_requests')->with('success', 'Registration successful!');
         }
 
         // If authentication fails, redirect back with error message
