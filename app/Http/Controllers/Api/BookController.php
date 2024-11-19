@@ -14,7 +14,40 @@ class BookController extends Controller
      */
     public function index(Request $request)
     {
-        // $query = Book::query();
+        $perPage = $request->perPage ?? 12;
+        $search = $request->search;
+        $categoryId = $request->categoryId;
+        $subCategoryId = $request->subCategoryId;
+        $orderBy = $request->orderBy ?? 'id';
+        $orderDir = strtolower($request->orderDir) === 'asc' ? 'asc' : 'desc'; // Ensure 'asc' or 'desc'
+
+        $query = Book::query();
+
+        if ($search) {
+            $query->where(function ($sub_query) use ($search) {
+                $sub_query->where('title', 'LIKE', '%' . $search . '%')
+                        ->orWhere('authors', 'LIKE', '%' . $search . '%')
+                        ->orWhere('isbn', 'LIKE', '%' . $search . '%')
+                        ->orWhere('publisher_name', 'LIKE', '%' . $search . '%')
+                        ->orWhere('description', 'LIKE', '%' . $search . '%');
+            });
+        }
+
+        if ($categoryId) {
+            $query->where('category_id', $categoryId);
+        }
+
+        if ($subCategoryId) {
+            $query->where('sub_category_id', $subCategoryId);
+        }
+
+        // Apply ordering
+        $query->orderBy($orderBy, $orderDir);
+
+        // Paginate results with the specified number per page
+        $books = $query->paginate($perPage);
+
+        return response()->json($books);
     }
 
     public function new_arrival(Request $request)
