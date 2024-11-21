@@ -70,7 +70,7 @@ class NewsController extends Controller
     }
     public function categories()
     {
-        $categories = NewsCategory::orderBy('name')->get();
+        $categories = NewsCategory::orderBy('name')->withCount('pages')->get();
         return response()->json($categories);
     }
 

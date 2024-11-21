@@ -15,4 +15,8 @@ class NewsCategory extends Model
     {
         return $this->hasMany(NewsSubCategory::class);
     }
+    public function pages()
+    {
+        return $this->hasMany(News::class, "news_category_id", "id");
+    }
 }
