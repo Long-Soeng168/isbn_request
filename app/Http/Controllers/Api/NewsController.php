@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\News;
-
+use App\Models\NewsCategory;
 
 class NewsController extends Controller
 {
@@ -67,6 +67,11 @@ class NewsController extends Controller
     {
         $news = News::find($id);
         return response()->json($news);
+    }
+    public function categories()
+    {
+        $categories = NewsCategory::orderBy('name')->get();
+        return response()->json($categories);
     }
 
     /**

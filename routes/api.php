@@ -30,6 +30,7 @@ Route::get('links', [LinkController::class, 'index']);
 Route::get('footer', [FooterController::class, 'index']);
 Route::get('slides', [SlideController::class, 'index']);
 Route::resource('news', NewsController::class);
+Route::get('news_categories', [NewsController::class, 'categories']);
 Route::get('categories', [CategoryController::class, 'index']);
 Route::get('promotions', [PromotionController::class,'index']);
 Route::get('features', [FeatureController::class,'index']);
