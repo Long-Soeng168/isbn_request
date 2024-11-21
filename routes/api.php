@@ -29,7 +29,7 @@ Route::get('publishers', [PublisherController::class, 'publishers']);
 Route::get('links', [LinkController::class, 'index']);
 Route::get('footer', [FooterController::class, 'index']);
 Route::get('slides', [SlideController::class, 'index']);
-Route::get('news', [NewsController::class, 'index']);
+Route::resource('news', NewsController::class);
 Route::get('categories', [CategoryController::class, 'index']);
 Route::get('promotions', [PromotionController::class,'index']);
 Route::get('features', [FeatureController::class,'index']);
