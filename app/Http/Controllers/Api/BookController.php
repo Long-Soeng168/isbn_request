@@ -26,10 +26,10 @@ class BookController extends Controller
         if ($search) {
             $query->where(function ($sub_query) use ($search) {
                 $sub_query->where('title', 'LIKE', '%' . $search . '%')
-                        ->orWhere('authors', 'LIKE', '%' . $search . '%')
-                        ->orWhere('isbn', 'LIKE', '%' . $search . '%')
-                        ->orWhere('publisher_name', 'LIKE', '%' . $search . '%')
-                        ->orWhere('description', 'LIKE', '%' . $search . '%');
+                    ->orWhere('authors', 'LIKE', '%' . $search . '%')
+                    ->orWhere('isbn', 'LIKE', '%' . $search . '%')
+                    ->orWhere('publisher_name', 'LIKE', '%' . $search . '%')
+                    ->orWhere('description', 'LIKE', '%' . $search . '%');
             });
         }
 
@@ -67,10 +67,10 @@ class BookController extends Controller
     public function best_selling(Request $request)
     {
         // First set of 10 books ordered by ID in descending order
-        $first_set = Book::query()->orderBy('id', 'DESC')->limit(10)->get();
+        $first_set = Book::query()->inRandomOrder()->limit(10)->get();
 
         // Second set of 10 books ordered by ID in descending order, offset by 10
-        $second_set = Book::query()->orderBy('id', 'DESC')->offset(10)->limit(10)->get();
+        $second_set = Book::query()->inRandomOrder()->offset(10)->limit(10)->get();
 
         return response()->json([
             'first_set' => $first_set,
