@@ -14,6 +14,7 @@ class CategoryController extends Controller
     public function index(Request $request)
     {
         $limit = $request->limit;
+        $withSub = $request->withSub;
         $orderBy = $request->orderBy ?? 'order_index';
         $orderDir = strtolower($request->orderDir) === 'desc' ? 'desc' : 'asc'; // Ensure 'asc' or 'desc'
 
@@ -25,6 +26,9 @@ class CategoryController extends Controller
         // Apply limit if provided
         if ($limit) {
             $query->limit($limit);
+        }
+        if ($withSub == 1) {
+            $query->with('subCategories');
         }
 
         $categories = $query->withCount('books')->get();
