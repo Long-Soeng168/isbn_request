@@ -16,7 +16,7 @@ class BookCategory extends Model
 
     public function subCategories()
     {
-        return $this->hasMany(BookSubCategory::class);
+        return $this->hasMany(BookSubCategory::class, 'category_id','id');
     }
 
     public function books()
