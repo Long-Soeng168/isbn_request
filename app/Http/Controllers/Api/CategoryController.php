@@ -32,6 +32,16 @@ class CategoryController extends Controller
         return response()->json($categories);
     }
 
+    public function getCategoryWithMostBooks()
+    {
+        $category = BookCategory::withCount('books')
+            ->orderBy('books_count', 'desc')
+            ->first(); // Get the category with the most books
+
+        return response()->json($category);
+    }
+
+
 
 
     /**

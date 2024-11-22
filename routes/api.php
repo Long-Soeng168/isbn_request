@@ -32,6 +32,7 @@ Route::get('slides', [SlideController::class, 'index']);
 Route::resource('news', NewsController::class);
 Route::get('news_categories', [NewsController::class, 'categories']);
 Route::get('categories', [CategoryController::class, 'index']);
+Route::get('categories_most_books', [CategoryController::class, 'getCategoryWithMostBooks']);
 Route::get('promotions', [PromotionController::class,'index']);
 Route::get('features', [FeatureController::class,'index']);
 Route::get('contact', [ContactController::class,'index']);
