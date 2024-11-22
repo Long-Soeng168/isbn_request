@@ -36,7 +36,7 @@ class CategoryController extends Controller
 {
     $category = BookCategory::withCount('books')
         ->with(['books' => function ($query) {
-            $query->limit(4); // Limit books to 4
+            $query->limit(5); // Limit books to 4
         }])
         ->orderBy('books_count', 'desc')
         ->first(); // Get the category with the most books
