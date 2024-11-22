@@ -27,7 +27,7 @@ class CategoryController extends Controller
             $query->limit($limit);
         }
 
-        $categories = $query->withCount('books')->with('books')->get();
+        $categories = $query->withCount('books')->get();
 
         return response()->json($categories);
     }
