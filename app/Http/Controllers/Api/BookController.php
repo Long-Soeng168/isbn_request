@@ -51,7 +51,7 @@ class BookController extends Controller
         // Map the results to extract URLs
         $books->getCollection()->transform(function ($book) {
             // Replace 'url' with the specific key you want from the image
-            $book->images = $book->images->pluck('image'); // Add 'image_urls' attribute
+            $book->image_urls = $book->images->pluck('image'); // Add 'image_urls' attribute
             return $book;
         });
 
