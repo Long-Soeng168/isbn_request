@@ -19,7 +19,7 @@ class Book extends Model
     {
         return $this->belongsTo(Publisher::class, 'publisher_id', 'id');
     }
-    public function auhtor()
+    public function author()
     {
         return $this->belongsTo(Author::class, 'author_id', 'id');
     }
