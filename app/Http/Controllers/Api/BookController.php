@@ -100,7 +100,7 @@ class BookController extends Controller
      */
     public function show(string $id)
     {
-        $book =  Book::with('images')->find($id);
+        $book =  Book::with('images', 'author', 'publisher')->find($id);
         return response()->json($book);
     }
 

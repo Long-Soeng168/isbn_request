@@ -11,9 +11,17 @@ class Book extends Model
     protected $table = 'books';
     protected $guarded = [];
 
+    // public function publisher()
+    // {
+    //     return $this->belongsTo(User::class, 'publisher_id', 'id');
+    // }
     public function publisher()
     {
-        return $this->belongsTo(User::class, 'publisher_id', 'id');
+        return $this->belongsTo(Publisher::class, 'publisher_id', 'id');
+    }
+    public function auhtor()
+    {
+        return $this->belongsTo(Author::class, 'author_id', 'id');
     }
     public function category()
     {
