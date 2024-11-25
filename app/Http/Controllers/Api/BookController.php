@@ -41,7 +41,8 @@ class BookController extends Controller
         if ($subCategoryId) {
             $query->where('sub_category_id', $subCategoryId);
         }
-        if ($randomOrder==1) {
+
+        if ($randomOrder == 1) {
             $query->inRandomOrder();
         } else {
             $query->orderBy($orderBy, $orderDir);
