@@ -18,6 +18,7 @@ class BookController extends Controller
         $search = $request->search;
         $categoryId = $request->categoryId;
         $subCategoryId = $request->subCategoryId;
+        $randomOrder = $request->randomOrder ?? 0;
         $orderBy = $request->orderBy ?? 'id';
         $orderDir = strtolower($request->orderDir) === 'asc' ? 'asc' : 'desc'; // Ensure 'asc' or 'desc'
 
@@ -40,9 +41,13 @@ class BookController extends Controller
         if ($subCategoryId) {
             $query->where('sub_category_id', $subCategoryId);
         }
+        if ($randomOrder) {
+            $query->inRandomOrder();
+        } else {
+            $query->orderBy($orderBy, $orderDir);
+        }
 
         // Apply ordering
-        $query->orderBy($orderBy, $orderDir);
 
         // Paginate results with the specified number per page
         $books = $query->paginate($perPage);
