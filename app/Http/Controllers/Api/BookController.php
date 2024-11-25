@@ -45,11 +45,15 @@ class BookController extends Controller
         $query->orderBy($orderBy, $orderDir);
 
         // Paginate results with the specified number per page
-        $query->with(['images' => function ($query) {
-            $query->select('image');
-        }]);
+        // $query->with('images');
+        $books = $query->with('images')->paginate($perPage);
 
-        $books = $query->paginate($perPage);
+        // Map the results to extract URLs
+        $books->getCollection()->transform(function ($book) {
+            // Replace 'url' with the specific key you want from the image
+            $book->image_urls = $book->images->pluck('url'); // Add 'image_urls' attribute
+            return $book;
+        });
 
         return response()->json($books);
     }
