@@ -46,7 +46,7 @@ class BookController extends Controller
 
         // Paginate results with the specified number per page
         $query->with('images', function($sub){
-            $sub->with('id','image');
+            $sub->select('id','image');
         });
         $books = $query->paginate($perPage);
 
