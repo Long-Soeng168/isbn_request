@@ -38,5 +38,6 @@ Route::get('features', [FeatureController::class,'index']);
 Route::get('contact', [ContactController::class,'index']);
 Route::get('about', [AboutController::class,'index']);
 Route::get('books', [BookController::class,'index']);
+Route::get('books/{id}', [BookController::class,'show']);
 Route::get('books_new_arrival', [BookController::class, 'new_arrival']);
 Route::get('books_best_selling', [BookController::class, 'best_selling']);
