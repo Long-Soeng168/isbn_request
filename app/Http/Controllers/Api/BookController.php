@@ -72,11 +72,12 @@ class BookController extends Controller
 
     public function best_selling(Request $request)
     {
+        $limit = $request->limit;
         // First set of 10 books ordered by ID in descending order
-        $first_set = Book::query()->inRandomOrder()->limit(10)->get();
+        $first_set = Book::query()->inRandomOrder()->limit($limit ?? 10)->get();
 
         // Second set of 10 books ordered by ID in descending order, offset by 10
-        $second_set = Book::query()->inRandomOrder()->offset(10)->limit(10)->get();
+        $second_set = Book::query()->inRandomOrder()->offset(10)->limit($limit ?? 10)->get();
 
         return response()->json([
             'first_set' => $first_set,
