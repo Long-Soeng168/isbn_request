@@ -45,9 +45,7 @@ class BookController extends Controller
         $query->orderBy($orderBy, $orderDir);
 
         // Paginate results with the specified number per page
-        $query->with(['images' => function($query) {
-            $query->pluck('image'); // Adjust fields as necessary
-        }]);
+        $query->with('images');
         $books = $query->paginate($perPage);
 
         return response()->json($books);
